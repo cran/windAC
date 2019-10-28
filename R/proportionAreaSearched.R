@@ -1,0 +1,28 @@
+#'
+#' @name proportionAreaSearched
+#'
+#' @title Proportion of area searched example data set
+#'
+#' @description An example data set of the proportion of area searched around turbines at a wind farm.
+#'
+#' @usage data(proportionAreaSearched)
+#'
+#' @details
+#' Plots around turbines are searched for bird and bat carcasses. The area searched is summarized into the proportion of area searched with one unit annuli (or rings).
+#' The distance here corresponds to the outer radius of the annuli.
+#'
+#' For example:
+#' \code{plotType}    \code{distanceFromTurbine}    \code{portionAreaSearched}
+#'              RP                           11                    0.12441226
+#'
+#' This row is corresponds to the annulus with outer radius of 11 and inner radius of 10.
+#' The proportion of area search on RP (road and pad) plot types is 0.12441226, or approximately 12 percent.
+#'
+#' @format A data frame with 400 rows and 3 variables:
+#' \describe{
+#'   \item{plotType}{Either FULL or RP, the type of plot searched at the turbine}
+#'   \item{distanceFromTurbine}{The outer radius distance from the turbine, for the one unit annulus.}
+#'   \item{proportionAreaSearched}{The proportion of area searched within the annulus at the turbine.}
+#' }
+#'
+"proportionAreaSearched"

@@ -14,7 +14,7 @@ weightedDistribution(fatDist, weightFun, distribution, ...)
 
 \item{weightFun}{R function that is multipled by the probability distribution, see details.}
 
-\item{distribution}{Single character indicating the distribution for \code{weightedDistribution} or vector for \code{estWD}.}
+\item{distribution}{Character indicating the distribution for \code{weightedDistribution} or vector for \code{estWD}.}
 
 \item{...}{Additional arguments passed to \code{weightFun} or \code{\link[stats]{optim}}.}
 }
@@ -22,8 +22,8 @@ weightedDistribution(fatDist, weightFun, distribution, ...)
 Data frame of the parameter estimates with fit statistics.
 }
 \description{
-Maximum likelihood is done on a weighted distribution.
-The weighted distribution is a typical probability density distribution multiple by a weight function.
+Maximum likelihood estimatation of a weighted probability density function is completed. is done on a weighted distribution.
+The weighted distribution is a typical probability density distribution multiplied by a weight function. The weight function can be used to truncate the distribution by returning zero beyond some threshold value.
 }
 \details{
 The function \code{estWD} is a convient wrapper function to \code{weightedDistribution}, for fitting multiple distributions.

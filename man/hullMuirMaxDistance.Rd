@@ -15,7 +15,7 @@ hullMuirMaxDistance(hubHeight, bladeRadius, ...)
 }
 \value{
 data frame of maximum distance by size class, \code{hubHeight}, and
-  \code{bladeRadius}
+  \code{bladeRadius}. Distance will be in the same units as were provided for \code{hubHeight} and \code{bladeRadius}
 }
 \description{
 Calculate the maximum fall distance from a turbine using the
@@ -27,6 +27,9 @@ Using the linear regression coefficients from Hull and Muir (2010), a
   small birds (SB), and large birds (LB)) separately.
 
   It is assumed that \code{hubHeight} and \code{bladeRadius} have the same units.
+
+Note: Hull and Muir (2010) used the range of 65 m < \code{hubHeight} < 94 m  and  33 m < \code{bladeRadius} < 55 m.
+Anything outside of this range is extrapolation and should only be done with care.
 }
 \examples{
 

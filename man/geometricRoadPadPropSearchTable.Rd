@@ -2,26 +2,26 @@
 % Please edit documentation in R/geometricRoadPadPropSearchTable.R
 \name{geometricRoadPadPropSearchTable}
 \alias{geometricRoadPadPropSearchTable}
-\title{Create proportion of area searched table from a road and pad plot}
+\title{Calculate the areas of intersection of a series of nested annuli with an idealized access road and turbine pad.}
 \usage{
-geometricRoadPadPropSearchTable(padRadius, roadWidth, maxSearchDistance,
-  mastRadius, annuliWidth = 1, ...)
+geometricRoadPadPropSearchTable(padRadius, roadWidth, maxSearchRadius,
+  mastRadius, annulusWidth = 1, ...)
 }
 \arguments{
-\item{padRadius}{Integer, radius of turbine pad.}
+\item{padRadius}{Integer, radius of turbine pad from the center of the turbine.}
 
 \item{roadWidth}{Integer, width of road leading to turbine pad.}
 
-\item{maxSearchDistance}{Integer, maximum search distance from the turbine.}
+\item{maxSearchRadius}{Integer, maximum search distance from the center of turbine.}
 
 \item{mastRadius}{Integer, radius of the turbine mast.}
 
-\item{annuliWidth}{Integer, width of annuli, default is 1.}
+\item{annulusWidth}{Integer, width of annulus, default is 1.}
 
 \item{...}{Currently ignored.}
 }
 \value{
-Data frame of proportion of area searched for each annulus.  \code{distanceFromTurbine} column represents the outer radius of the annuli.
+Data frame of proportion of area searched for each annulus.  \code{distanceFromTurbine} column represents the outer radius of each annulus.
 }
 \description{
 Calculate area of annulus bisected by 2 parallel lines (e.g. a
@@ -30,12 +30,14 @@ Calculate area of annulus bisected by 2 parallel lines (e.g. a
 \details{
 Searches are conducted on the road and turbine pad around wind
   turbines for bird and bat fatalities. This function creates a data frame of
-  proportion of area searched within each annulus ring.
+  proportion of area searched within each annulus ring on an idealized road and pad.
+The turbine is assumed to be centered on a perfectly circular turbine pad with radius \code{padRadius}, and a perfectly straight access road of width \code{roadWidth} is oriented from the center of the circle away from the turbine.
+(The resulting road and pad looks like rather like a lollipop.)
 
   The \code{mastRadius} argument is to account for the area taken up by the turbine mast.
 
   The arguments \code{padRadius}, \code{roadWidth}, \code{mastRadius}, and
-  \code{annuliWidth} are all rounded to the nearest integer. The \code{maxSearchDistance}
+  \code{annulusWidth} are all rounded to the nearest integer. The \code{maxSearchDistance}
   is rounded up (ceiling function) to an integer. If half units are needed, then
   convert to a smaller unit. See examples.
 }
@@ -46,10 +48,10 @@ road <- 4 #meters, width of the road to the turbine pad
 maxDistance <- 100 #meters, max distance
 mast <- 2 #meters, turbine mast radius
 
-## proportion are area searched at each annulu
+## proportion are area searched at each annulus
 propSearch <- geometricRoadPadPropSearchTable(padRadius = pad,
                                               roadWidth = road,
-                                              maxSearchDistance = maxDistance,
+                                              maxSearchRadius = maxDistance,
                                               mastRadius = mast)
 head(propSearch, 20)
 
@@ -59,15 +61,16 @@ convert <- 100 # meters * 100 = centimeters
 ## units in centimeters
 propSearchHalfMeter <- geometricRoadPadPropSearchTable(padRadius = pad * convert,
                                               roadWidth = road*convert,
-                                              maxSearchDistance = maxDistance * convert,
+                                              maxSearchRadius = maxDistance * convert,
                                               mastRadius = mast * convert,
-                                              annuliWidth = 50) ##50cm = half a meter
+                                              annulusWidth = 50) ##50cm = half a meter
 head(propSearchHalfMeter, 30)
 
 ## convert back to meters
 propSearchHalfMeter$distanceFromTurbine <- propSearchHalfMeter$distanceFromTurbine/convert
 head(propSearchHalfMeter, 30)
+
 }
 \seealso{
-geometricRectanglePropSearchTable
+geometricRectanglePropSearchTable circleBoxInt
 }

@@ -4,15 +4,15 @@
 \name{windAC}
 \alias{windAC}
 \alias{windAC-package}
-\title{A package for calculating area correction values for fatality estimation.}
+\title{A package for calculating area correction values for fatality estimation at wind farms.}
 \description{
-Bird and bat carcasses from wind turbines often fall outside of the searched area.
-To compensate, area correction (AC) estimations are calculated to estimate the percentage
-of fatalities that fall within the searched area versus those that fall outside of it. This package provides two likelihood based methods and one physics based method (Hull and Muir 2010) to estimate the carcass fall distance distribution. There are also functions for calculating the proportion of area searched in one unit annuli, log logistic distribution functions, and truncated distribution functions.
+Post-construction fatality monitoring studies at wind facilities are based on data from searches for bird and bat carcasses in plots beneath turbines. Bird and bat carcasses can fall outside of the search plot. Bird and bat carcasses from wind turbines often fall outside of the searched area. To compensate, area correction (AC) estimations are calculated to estimate the percentage of fatalities that fall within the searched area versus those that fall outside of it. This package provides two likelihood based methods and one physics based method (Hull and Muir (2010), Huso and Dalthorp (2014)) to estimate the carcass fall distribution. There are also functions for calculating the proportion of area searched within one unit annuli, log logistic distribution functions, and truncated distribution functions.
 
 
 
-The two likelihood methods are the truncated weighted likelihood (\code{\link{estTWL}}) and the weighted distribution (\code{\link{estWD}}). Both use carcass distances from the turbine, accounting for unequal detection by distance, to estimate the distance distribution. Alternatively, a right triangle distribution can be used for the carcass density distribution with the max distance estimated (\code{\link{hullMuirMaxDistance}} from the regression from Hull and Muir (2010).
+
+
+The two likelihood methods are the truncated weighted likelihood (\code{\link{estTWL}}) and the weighted distribution (\code{\link{estWD}}). Both use carcass distances from the turbine, accounting for unequal detection by distance, to estimate the distance distribution. Alternatively, a right triangle distribution can be used for the carcass density distribution with the max distance estimated (\code{\link{hullMuirMaxDistance}} from the regression from Hull and Muir (2010) as proposed by Huso and Dalthorp (2014).
 
 
 
@@ -36,6 +36,10 @@ The second is truncation functions (see \code{\link{dtrunc}}), that provide trun
 }
 \references{
 Hallingstad EC, Rabie PA, Telander AC, Roppe JA, Nagy LR (2018) Developing an efficient protocol for monitoring eagle fatalities at wind energy facilities. PLoS ONE 13(12): e0208700. https://doi.org/10.1371/journal.pone.0208700
+
+Huso, M. & Dalthorp,D (2014).
+Accounting for Unsearched Areas in Estimating Wind Turbine-Caused Fatality.
+The Journal of Wildlife Management. 78. 10.1002/jwmg.663.
 
 Hull, C. L., & Muir, S. (2010). Search areas for monitoring bird and bat carcasses at wind farms using a Monte-Carlo model.Australasian Journal of Environmental Management, 17(2), 77-87.
 }

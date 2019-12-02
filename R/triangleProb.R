@@ -2,7 +2,7 @@
 #' @name triangleProb
 #'
 #' @title Calculate probabilities from a triangle distribution based on Hull and
-#'   Muir (2010) maximum distance
+#'   Muir (2010) maximum distance as proposed by Huso and Dalthorp (2014).
 #'
 #' @description Calculate the probabilities between one-unit increments of a right
 #'   triangle distribution.
@@ -10,11 +10,15 @@
 #' @param hubHeight Numeric, turbine hub height.
 #' @param bladeRadius Numeric, turbine blade radius.
 #' @param lowerBound Numeric, default is zero, see Details.
+#' @param upperBound Numeric, default is \code{Inf}, see Details.
 #' @param ... Currently ignored.
 #'
 #' @details A right triangle is constructed with the 90 degree corner at the
 #'   origin in the first quadrant of the cartesian plane. The \code{lowerBound}
-#'   will offset the origin to the right. The maximum horizontal distance is calculated using
+#'   will move the left edge of the triangle to the right. The \code{upperBound} will truncate the
+#'  triangle distribution at that value.
+#'
+#' The maximum horizontal distance is calculated using
 #' \code{\link{hullMuirMaxDistance}}. This is typically not a
 #'   whole number and the \code{\link[base]{ceiling}} is used. The maximum
 #'   vertical distance is such that the area under the hypotenuse edge of triangle
@@ -48,6 +52,9 @@
 #'   Search areas for monitoring bird and bat carcasses at wind farms using a Monte-Carlo model.
 #'   Australasian Journal of Environmental Management, 17(2), 77-87.
 #'
+#' @references Huso, M. & Dalthorp,D (2014).
+#' Accounting for Unsearched Areas in Estimating Wind Turbine-Caused Fatality.
+#' The Journal of Wildlife Management. 78. 10.1002/jwmg.663.
 #'
 #' @seealso \code{\link{hullMuirMaxDistance}}
 #'
@@ -56,23 +63,23 @@
 #' triResult <- triangleProb(hubHeight = 100, bladeRadius = 50, lowerBound = 0)
 #' names(triResult) ## list names
 #' triResult$maxDist ## max distance for each size class
-#' ## head(triResult$triDistProb)
+#' head(triResult$triDistProb)
 
 
 
 
-triangleProb <- function(hubHeight,bladeRadius,lowerBound=0,...){
+triangleProb <- function(hubHeight,bladeRadius,lowerBound=0,upperBound=Inf,...){
 
 
     ## for testing
-    ##hubHeight <- 87.5;bladeRadius <- 62.5;lowerBound<-0
+    ##hubHeight <- 87.5;bladeRadius <- 62.5;lowerBound<-0;upperBound <- 50
 
 
     ## user inputs
-    input <- c(hubHeight,bladeRadius,lowerBound)
+    input <- c(hubHeight,bladeRadius,lowerBound,upperBound)
 
-    if(!is.numeric(input)||length(input)!=3||any(input<0)){
-        stop('hubHeight, bladeRadius, and lowerBound must each be a single number that is nonnegative.')
+    if(!is.numeric(input)||length(input)!=4||any(input<0)){
+        stop('hubHeight, bladeRadius, lowerBound, and upperBound must each be a single number that is nonnegative.')
     } # end if
 
 
@@ -108,7 +115,7 @@ triangleProb <- function(hubHeight,bladeRadius,lowerBound=0,...){
     ## for debugging
     ##dat <- subset(triPoints,size=='BAT')
 
-    getProb <- function(dat){
+    getProb <- function(dat,upperBound){
         dist <- with(dat,(x1+1):x2) ## one unit increments
         ## The probabilities between the increments are given by
         ##\int_{x-1}^{x}mZ+b dZ = m(x-.5)+b
@@ -118,6 +125,12 @@ triangleProb <- function(hubHeight,bladeRadius,lowerBound=0,...){
         prop <- with(dat,slope*(dist-.5)+intcp) # probabilities between increments
         out <- data.frame(dist,prop)
         names(out) <- c('distanceFromTurbine','probability')
+
+        ## include truncated probabilities as well
+        out$truncProb <- out$probability
+        out$truncProb[out$distanceFromTurbine>upperBound] <- 0
+        out$truncProb <- out$truncProb/sum(out$truncProb)
+
         return(out)
     } # end getProb function
 
@@ -128,9 +141,9 @@ triangleProb <- function(hubHeight,bladeRadius,lowerBound=0,...){
     triDistProb <- NULL
     for(s in sort(triPoints$size)){
 
-        sizeProb <- getProb(dat=subset(triPoints,triPoints$size==s))
+        sizeProb <- getProb(dat=subset(triPoints,triPoints$size==s),upperBound=upperBound)
         sizeProb$size <- s
-        triDistProb <- rbind(triDistProb,sizeProb[,c('size','distanceFromTurbine','probability')])
+        triDistProb <- rbind(triDistProb,sizeProb[,c('size','distanceFromTurbine','probability','truncProb')])
 
     }# end for s
 

@@ -5,7 +5,7 @@
 \title{Create proportion of area searched table for a rectangular full plot}
 \usage{
 geometricRectanglePropSearchTable(side1, side2 = side1, mastRadius,
-  annuliWidth = 1, ...)
+  annulusWidth = 1, ...)
 }
 \arguments{
 \item{side1}{Numeric, length of the side of the rectangle}
@@ -15,16 +15,15 @@ geometricRectanglePropSearchTable(side1, side2 = side1, mastRadius,
 
 \item{mastRadius}{Integer, radius of the turbine mast.}
 
-\item{annuliWidth}{Integer, width of annuli, default is 1}
+\item{annulusWidth}{Integer, width of annulus, default is 1}
 
 \item{...}{Currently ignored.}
 }
 \value{
-Data frame of proportion of area searched for each annulus. \code{distanceFromTurbine} column represents the outer radius of the annuli.
+Data frame of proportion of area searched for each annulus. \code{distanceFromTurbine} column represents the outer radius of each annulus.
 }
 \description{
-Calculate area of annulus bisected by 2 parallel lines to get the
-  area of the rectangle that is searched
+Calculate the areas of intersection of a series of nested annuli with a rectangle.
 }
 \details{
 Searches are conducted around a turbine within a rectangle for bird
@@ -48,5 +47,5 @@ propSearch <- geometricRectanglePropSearchTable(side1 = 50,
 
 }
 \seealso{
-geometricRoadPadPropSearchTable
+geometricRoadPadPropSearchTable circleBoxInt
 }

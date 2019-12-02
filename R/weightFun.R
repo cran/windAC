@@ -27,7 +27,7 @@
 #' @param ... Additional arguments passed to \code{xFun}.
 #'
 #'
-#' @return Numeric vector
+#' @return Numeric vector of weights with length equal to \code{length(x)}, and with a 1:1 relationship to the values in \code{x}.
 #'
 #' @export weightFun
 #'

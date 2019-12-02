@@ -16,10 +16,13 @@
 #'
 #'   It is assumed that \code{hubHeight} and \code{bladeRadius} have the same units.
 #'
+#' Note: Hull and Muir (2010) used the range of 65 m < \code{hubHeight} < 94 m  and  33 m < \code{bladeRadius} < 55 m.
+#' Anything outside of this range is extrapolation and should only be done with care.
+#'
 ## #' @usage hullMuirMaxDistance(hubHeight,bladeRadius)
 #'
 #' @return data frame of maximum distance by size class, \code{hubHeight}, and
-#'   \code{bladeRadius}
+#'   \code{bladeRadius}. Distance will be in the same units as were provided for \code{hubHeight} and \code{bladeRadius}
 #'
 #' @export hullMuirMaxDistance
 #'

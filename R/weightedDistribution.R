@@ -13,15 +13,15 @@
 #'
 #' @title Weighted Distribution Estimation
 #'
-#' @description Maximum likelihood is done on a weighted distribution.
-#' The weighted distribution is a typical probability density distribution multiple by a weight function.
+#' @description Maximum likelihood estimatation of a weighted probability density function is completed. is done on a weighted distribution.
+#' The weighted distribution is a typical probability density distribution multiplied by a weight function. The weight function can be used to truncate the distribution by returning zero beyond some threshold value.
 #'
 #'
 #'
 #'
 #' @param fatDist Vector of fatality distanes from the turbine.
 #' @param weightFun R function that is multipled by the probability distribution, see details.
-#' @param distribution Single character indicating the distribution for \code{weightedDistribution} or vector for \code{estWD}.
+#' @param distribution Character indicating the distribution for \code{weightedDistribution} or vector for \code{estWD}.
 #' @param ... Additional arguments passed to \code{weightFun} or \code{\link[stats]{optim}}.
 #'
 #'

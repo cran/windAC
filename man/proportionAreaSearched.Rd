@@ -14,7 +14,7 @@
 data(proportionAreaSearched)
 }
 \description{
-An example data set of the proportion of area searched around turbines at a wind farm.
+An example data set of the proportion of area searched within 1 m annuli around turbines at a wind farm.
 }
 \details{
 Plots around turbines are searched for bird and bat carcasses. The area searched is summarized into the proportion of area searched with one unit annuli (or rings).

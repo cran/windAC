@@ -23,7 +23,7 @@
 #' @param log.p Currently ignored.
 #'
 #'
-#' @details The non truncated distribution functions are assumed to be available. For example if the Normal distribution is desired then used \code{distribution='norm'}, the functions then look for 'qnorm', 'pnorm', etc.
+#' @details The non truncated distribution functions are assumed to be available. For example if the normal distribution is desired then used \code{distribution='norm'}, the functions then look for 'qnorm', 'pnorm', etc.
 #'
 #' The \code{max(tbound)} and \code{min(tbound)} are considered the upper and lower truncation bounds, respectively.
 #'

@@ -2,16 +2,16 @@
 % Please edit documentation in R/circleBoxInt.R
 \name{circleBoxInt}
 \alias{circleBoxInt}
-\title{Integration of the intersection of a rectangle and an annulus}
+\title{Integration of the intersection of a rectangle and a circle}
 \usage{
-circleBoxInt(b2, r, b1 = 0, ...)
+circleBoxInt(R, S, L, ...)
 }
 \arguments{
-\item{b2}{Numeric, upper integral bound.}
+\item{R}{Numeric, circle radius.}
 
-\item{r}{Numeric, circle radius.}
+\item{S}{Numeric, short side of the rectangle}
 
-\item{b1}{Numeric, lower integral bound, default is zero.}
+\item{L}{Numeric, long side of the rectangle}
 
 \item{...}{Currently ignored.}
 }
@@ -19,21 +19,44 @@ circleBoxInt(b2, r, b1 = 0, ...)
 Numeric value
 }
 \description{
-Calculate area of annulus bisected by 2 parallel lines to get the
-  area of the rectangle that is searched
+Calculates the area of the intersection between a rectangle and and circle.
 }
 \details{
-The integral of a box bounded by the y-axis on the left, \code{b1} or x-axis on the bottom (which every is larger), \code{b2} on the top, and by a circle with radius \code{r} on the right.
-\deqn{\int_{b1}^{b2} \sqrt{r^{2} - y^{2}} dy = 1/2(y\sqrt{r^2-y^2} + r^2tan^{-1}(y/\sqrt{r^2 - y^2})) |_{b1}^{b2}}
+The rectangle is defined with lower left corner being the origin and upper right corner at (L, S). The area returned is the intersection between the circle, centered at the origin, and the rectangle.
 
+If \eqn{R \leq S} then \eqn{(\pi R^2)/4} is returned.
 
-This is an internal function and intended for use in \code{\link{geometricRectanglePropSearchTable}} and \code{\link{geometricRoadPadPropSearchTable}}
+If \eqn{R \geq \sqrt{S^2 + L^2}} then \eqn{L*S} is returned.
+
+If \eqn{R \leq L} then \eqn{R^2*sin^{-1}(S/R)/2 + S*\sqrt(R^2-S^2)/2}
+This is the area of a circle in the first quadrant between the horizontial line \eqn{y=S}
+
+if \eqn{R > L} and \eqn{R < \sqrt{S^2 + L^2}} then
+\deqn{(R^2*sin^{-1}(S/R)/2 + S*\sqrt(R^2-S^2)/2) - (R^2*sin^{-1}(B/R)/2 + S*\sqrt(R^2-B^2)/2) + B*L}
+where \eqn{B = \sqrt{R^2 - L^2}}. In this case the there is part of the circle to the right of the rectangle. First set of parenthesis is the area of the circle below \code{S}, the second set is the area below \code{B}. Substracting the two gives the area between \code{B} and \code{S}. The rectangle defined by \code{B} and \code{L} needs to be added back in.
 }
 \examples{
 
-b2 <- 5
-b1 <- 1
-r <- 10
-circleBoxInt(b2=b2,r=r,b1=b1)
+radius <- 115
+short <- 80
+long <- 100
+circleBoxInt(R=radius,S=short,L=long)
 
+## not run
+## the integral is the area inside the polygon
+\donttest{
+ x <- seq(0,max(radius,long),length=100)
+outlineY <- function(x,R,S,L){
+    suppressWarnings(y <- sqrt(R^2-x^2))
+   y[x>R] <- 0
+   y[x>L] <- 0
+   y[y>=S] <- S
+   return(y)
+}
+y <- outlineY(x=x,R=radius,S=short,L=long)
+plot(x,y,type='l',ylim=c(-10,short))
+text(long,0,label='L',pos=1)
+text(0,short,label='S',pos=1)
+text(long,sqrt(radius^2-long^2),label='B',pos=4)
+}
 }

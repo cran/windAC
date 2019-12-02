@@ -14,7 +14,7 @@ weightedLikelihood(fatDist, fatW, distribution, plotBounds = NULL, ...)
 
 \item{fatW}{Vector of weights, to weight the likelihood for estimatation. This must be the same length as fatDist and is assumed to be in the same order as fatDist.}
 
-\item{distribution}{Single character indicating the distribution for \code{weightedLikelihood} or vector for \code{estTWL}.}
+\item{distribution}{Character indicating the distribution for \code{weightedLikelihood} or vector for \code{estTWL}.}
 
 \item{plotBounds}{Vector of length 1 or 2. If the length is 2 (or greater) the max value is used as the upper truncation bound and the min value is used as the lower truncation bound. If the length is 1 this value is taken as the upper truncation bound and zero is set as the lower truncation bound. The default is NULL, in which case the bounds are zero and positive infinity.}
 
@@ -24,7 +24,7 @@ weightedLikelihood(fatDist, fatW, distribution, plotBounds = NULL, ...)
 Data frame of the parameter estimates for the distribution with fit statistics.
 }
 \description{
-Maximum likelihood estimation is done on a likelihood that is truncated (possibly) and weighted. The weights are associated with each observation.
+Maximum likelihood estimation of a (possibly truncated) probability density function is completed with weights on the likelihood.
 }
 \details{
 The truncated likelihood for a single observation is

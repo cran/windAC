@@ -28,4 +28,6 @@
 #' \item{probabilityDetection}{The summarized probability of detection from the bias trial information.}
 #' }
 #'
+#' @references \url{https://www.fws.gov/ecological-services/es-library/pdfs/WEG_final.pdf}
+#'
 "carcassDistance"

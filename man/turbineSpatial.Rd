@@ -15,6 +15,6 @@ data(turbineSpatial)
 List containing two spatial data frames
 }
 \details{
-A list of data frames, with two elements named \code{turbinePlots} and \code{turbinePoints}. This is fictious data for example purposes only.
+A list of data frames, with two elements named \code{turbinePlots} and \code{turbinePoints}. These are fictious data for example purposes only.
 }
 \keyword{datasets}

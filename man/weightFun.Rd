@@ -27,7 +27,7 @@ weightFun(x, propTable, type, typeCol, distanceCol, propCol,
 \item{...}{Additional arguments passed to \code{xFun}.}
 }
 \value{
-Numeric vector
+Numeric vector of weights with length equal to \code{length(x)}, and with a 1:1 relationship to the values in \code{x}.
 }
 \description{
 Generic weight function for use with \code{\link{estWD}}.

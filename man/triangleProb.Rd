@@ -3,9 +3,10 @@
 \name{triangleProb}
 \alias{triangleProb}
 \title{Calculate probabilities from a triangle distribution based on Hull and
-  Muir (2010) maximum distance}
+  Muir (2010) maximum distance as proposed by Huso and Dalthorp (2014).}
 \usage{
-triangleProb(hubHeight, bladeRadius, lowerBound = 0, ...)
+triangleProb(hubHeight, bladeRadius, lowerBound = 0, upperBound = Inf,
+  ...)
 }
 \arguments{
 \item{hubHeight}{Numeric, turbine hub height.}
@@ -13,6 +14,8 @@ triangleProb(hubHeight, bladeRadius, lowerBound = 0, ...)
 \item{bladeRadius}{Numeric, turbine blade radius.}
 
 \item{lowerBound}{Numeric, default is zero, see Details.}
+
+\item{upperBound}{Numeric, default is \code{Inf}, see Details.}
 
 \item{...}{Currently ignored.}
 }
@@ -28,7 +31,10 @@ Calculate the probabilities between one-unit increments of a right
 \details{
 A right triangle is constructed with the 90 degree corner at the
   origin in the first quadrant of the cartesian plane. The \code{lowerBound}
-  will offset the origin to the right. The maximum horizontal distance is calculated using
+  will move the left edge of the triangle to the right. The \code{upperBound} will truncate the
+ triangle distribution at that value.
+
+The maximum horizontal distance is calculated using
 \code{\link{hullMuirMaxDistance}}. This is typically not a
   whole number and the \code{\link[base]{ceiling}} is used. The maximum
   vertical distance is such that the area under the hypotenuse edge of triangle
@@ -56,12 +62,16 @@ where \code{m} is
 triResult <- triangleProb(hubHeight = 100, bladeRadius = 50, lowerBound = 0)
 names(triResult) ## list names
 triResult$maxDist ## max distance for each size class
-## head(triResult$triDistProb)
+head(triResult$triDistProb)
 }
 \references{
 Hull, C. L., & Muir, S. (2010).
   Search areas for monitoring bird and bat carcasses at wind farms using a Monte-Carlo model.
   Australasian Journal of Environmental Management, 17(2), 77-87.
+
+Huso, M. & Dalthorp,D (2014).
+Accounting for Unsearched Areas in Estimating Wind Turbine-Caused Fatality.
+The Journal of Wildlife Management. 78. 10.1002/jwmg.663.
 }
 \seealso{
 \code{\link{hullMuirMaxDistance}}

@@ -12,13 +12,13 @@ calcAC(distribution, paramVec, varcovVec = NULL, proportionSearchDF,
 \item{distribution}{Character indicating the distribution, passed to
 \code{\link{getDistanceProbability}}.}
 
-\item{paramVec}{Numeric vector for the parameters associated with distribution.}
+\item{paramVec}{Numeric vector for the parameters associated with distribution. Assumed to be in the same order as the function indicated by \code{distribution}.}
 
 \item{varcovVec}{Numeric vector for the variances and covariances for
 \code{paramVec}, default is NULL, see details.}
 
-\item{proportionSearchDF}{Data frame with at least two columns: distance from
-turbine and proportion of area searched at each distance.}
+\item{proportionSearchDF}{Data frame with at least two columns: distance of the outer edge of an annulus from
+turbine and proportion of area searched within each annulus.}
 
 \item{distanceCol}{Character indicating the column name for the distance from
 turbine}
@@ -27,13 +27,13 @@ turbine}
 area searched.}
 
 \item{additionalCol}{Character vector, default is NULL, indicating additional
-columns of how the area correction value should be calculated, see examples.}
+columns of how the area correction value should be calculated, see details and examples.}
 
-\item{nBoot}{Integer, default is NULL, indicating the number of parametric
-bootstrap replicates to use.}
+\item{nBoot}{Integer, indicating the number of parametric
+bootstrap replicates to use. Default is NULL, and not confidence intervals are produced.}
 
-\item{truncBounds}{Numeric, default is NULL, indicating bounds for the area
-correction calculation, see details.}
+\item{truncBounds}{Numeric, indicating bounds for the area
+correction calculation, see details. Default is NULL, and the bounds are set to \code{c(0,Inf)}.}
 
 \item{ciLevel}{Numeric, default is 0.9, desired confidence level for the
 bootstrap confidence interval.}
@@ -46,12 +46,12 @@ bootstrap confidence interval.}
 \code{windAC} object
 }
 \description{
-Calculate area correction values and confidence intervals using a
+Use a fitted carcass density distribution and data describing the search area to calculate area correction values and confidence intervals using a
   parametric bootstrap approach.
 }
 \details{
 The function \code{\link{getDistanceProbability}} is used to calculate
-  the probability between distances, in \code{proportionSearchDF}, and distances minus \code{unitSize}.
+  the probability (fraction of carcasses) in the intervals between distances in \code{proportionSearchDF}.
 
   The \code{truncBounds} argument defaults to zero as a lower bound and infinity
   as the upper bound. If a single value is provided, it is assumed as the upper
@@ -59,7 +59,7 @@ The function \code{\link{getDistanceProbability}} is used to calculate
   \code{max(truncBounds)} is the upper bound and \code{min(truncBounds)} is the
   lower bound.
 
-  If \code{varcovVec} is NULL, then no parametric bootstrapping is done. The
+  If \code{varcovVec} is NULL, then parametric bootstrapping is impossible and a confidence interval is not estimated. The
   \code{varcovVec} should be in such an order that correctly fills the lower
   triangle including the diagonal. The first column is filled, then the second,
   and so on. This forms the variance-covariance matrix for the parameters.
@@ -67,6 +67,8 @@ The function \code{\link{getDistanceProbability}} is used to calculate
   If \code{nBoot} is greater than zero, a parametric bootstrap is done.
   Bootstrap parameters are generated using the \code{\link[mvtnorm]{rmvnorm}}
   function.
+
+If the additionalCol argument is not NULL, separate area corrections are estimated for each unique value within the column.
 }
 \examples{
 

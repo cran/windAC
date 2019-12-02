@@ -1,22 +1,28 @@
 
 #' @name circleBoxInt
 #'
-#' @title Integration of the intersection of a rectangle and an annulus
+#' @title Integration of the intersection of a rectangle and a circle
 #'
-#' @description Calculate area of annulus bisected by 2 parallel lines to get the
-#'   area of the rectangle that is searched
+#' @description Calculates the area of the intersection between a rectangle and and circle.
 #'
-#' @param b2 Numeric, upper integral bound.
-#' @param r Numeric, circle radius.
-#' @param b1 Numeric, lower integral bound, default is zero.
+#' @param R Numeric, circle radius.
+#' @param S Numeric, short side of the rectangle
+#' @param L Numeric, long side of the rectangle
 #' @param ... Currently ignored.
+#'
 #' @details
-#' The integral of a box bounded by the y-axis on the left, \code{b1} or x-axis on the bottom (which every is larger), \code{b2} on the top, and by a circle with radius \code{r} on the right.
-#' \deqn{\int_{b1}^{b2} \sqrt{r^{2} - y^{2}} dy = 1/2(y\sqrt{r^2-y^2} + r^2tan^{-1}(y/\sqrt{r^2 - y^2})) |_{b1}^{b2}}
+#' The rectangle is defined with lower left corner being the origin and upper right corner at (L, S). The area returned is the intersection between the circle, centered at the origin, and the rectangle.
 #'
+#' If \eqn{R \leq S} then \eqn{(\pi R^2)/4} is returned.
 #'
-#' This is an internal function and intended for use in \code{\link{geometricRectanglePropSearchTable}} and \code{\link{geometricRoadPadPropSearchTable}}
+#' If \eqn{R \geq \sqrt{S^2 + L^2}} then \eqn{L*S} is returned.
 #'
+#' If \eqn{R \leq L} then \eqn{R^2*sin^{-1}(S/R)/2 + S*\sqrt(R^2-S^2)/2}
+#' This is the area of a circle in the first quadrant between the horizontial line \eqn{y=S}
+#'
+#' if \eqn{R > L} and \eqn{R < \sqrt{S^2 + L^2}} then
+#' \deqn{(R^2*sin^{-1}(S/R)/2 + S*\sqrt(R^2-S^2)/2) - (R^2*sin^{-1}(B/R)/2 + S*\sqrt(R^2-B^2)/2) + B*L}
+#' where \eqn{B = \sqrt{R^2 - L^2}}. In this case the there is part of the circle to the right of the rectangle. First set of parenthesis is the area of the circle below \code{S}, the second set is the area below \code{B}. Substracting the two gives the area between \code{B} and \code{S}. The rectangle defined by \code{B} and \code{L} needs to be added back in.
 #'
 #'
 #' @return Numeric value
@@ -26,51 +32,88 @@
 #'
 #' @examples
 #'
-#' b2 <- 5
-#' b1 <- 1
-#' r <- 10
-#' circleBoxInt(b2=b2,r=r,b1=b1)
+#' radius <- 115
+#' short <- 80
+#' long <- 100
+#' circleBoxInt(R=radius,S=short,L=long)
 #'
-## not run
-## the integral is the area inside the polygon
-## x <- seq(0,r,length=100)
-## plot(x,sqrt(r^2-x^2),ylim=c(b1-1,b2+1),xlim=c(0,r+1),type='l',xaxs='i',yaxs='i')
-## segments(x0=0,y0=b1,x1=sqrt(r^2-b1^2),y1=b1)
-## segments(x0=0,y0=b2,x1=sqrt(r^2-b2^2),y1=b2)
+#' ## not run
+#' ## the integral is the area inside the polygon
+#' \donttest{
+#'  x <- seq(0,max(radius,long),length=100)
+#' outlineY <- function(x,R,S,L){
+#'     suppressWarnings(y <- sqrt(R^2-x^2))
+#'    y[x>R] <- 0
+#'    y[x>L] <- 0
+#'    y[y>=S] <- S
+#'    return(y)
+#' }
+#' y <- outlineY(x=x,R=radius,S=short,L=long)
+#' plot(x,y,type='l',ylim=c(-10,short))
+#' text(long,0,label='L',pos=1)
+#' text(0,short,label='S',pos=1)
+#' text(long,sqrt(radius^2-long^2),label='B',pos=4)
+#' }
 
 
-## ## for debugging
-## b2 <- 5
-## b1 <- 1
-## r <- 100
-## x <- seq(0,r,length=100)
-## ##the integral is the area inside the polygon
-## plot(x,sqrt(r^2-x^2),ylim=c(b1-1,b2+1),xlim=c(0,r+1),type='l',xaxs='i',yaxs='i')
-## segments(x0=0,y0=b1,x1=sqrt(r^2-b1^2),y1=b1)
-## segments(x0=0,y0=b2,x1=sqrt(r^2-b2^2),y1=b2)
-## circleBoxInt(b2=b2,r=r,b1=b1)
 
 
-circleBoxInt <- function(b2,r,b1=0,...){
+circleBoxInt <- function(R,S,L,...){
 
-    args <- c(b2,r,b1)
-    if(!is.numeric(args) || length(args) !=3){
-        stop('Arguments b2, r, and b1 each need to be a single numeric value.')
+
+     args <- c(R,S,L)
+     if(!is.numeric(args) || length(args) !=3 || any(args<0)){
+        stop('Arguments R, S, and L each need to be a single numeric value greater than zero.')
+     }#end if
+
+    if(any(args==0)){
+        return(0)
     }#end if
 
-    ## This integral is
-    ## \int_{b1}^b2 \sqrt{r^{2} - y^{2}} dy = 1/2(y\sqrt{r^2-y^2} + r^2tan^{-1}(y/\sqrt{r^2 - y^2})) |_{b1}^{b2}
-    ## this is the closed form solution
-    closeForm <- function(y,a){
-        if(a<=y){
-            out <- pi*a^2/4
-        }else{
-            out <- .5*(y*sqrt(a^2-y^2) + a^2 *atan(y/sqrt(a^2-y^2)))
-        }
-        return(out)
-    }#end function closeForm
 
-    out <- closeForm(b2,r)-closeForm(b1,r)
+    if(S>L){
+        stop('S must be less or equal to L')
+    }#end if
 
-    return(out)
-}#end circleBoxInt function
+
+
+    if(R<=S){
+        ## If the circle is completely inside the rectangle then the area is just that of the circle
+        (A <- pi*(R^2)/4) ## note: only the area for the first quadrant
+        return(A)
+    }#end if
+
+    farCorner <- sqrt(S^2+L^2)
+
+
+    if(R>=farCorner){
+        ## if the rectangle is completly inside the circle then the area is just the rectangle
+        A <- L*S
+        return(A)
+    }#end if
+
+
+    circInt <- function(a,b){
+        ##a= radius
+        ##b = height on y axis
+
+        return(a^2*asin(b/a)/2 + b*sqrt(a^2-b^2)/2)
+    }#end circInt
+
+
+    if(R<=L){
+        return(circInt(a=R,b=S))
+    }#end if
+
+
+    lowY <- sqrt(R^2 - L^2)
+
+    ##
+    A <- circInt(a=R,b=S) - circInt(a=R,b=lowY) + lowY*L
+
+    return(A)
+
+
+
+}#end circleBoxInt
+

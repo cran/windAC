@@ -3,7 +3,7 @@
 #'
 #' @title Proportion of area searched example data set
 #'
-#' @description An example data set of the proportion of area searched around turbines at a wind farm.
+#' @description An example data set of the proportion of area searched within 1 m annuli around turbines at a wind farm.
 #'
 #' @usage data(proportionAreaSearched)
 #'

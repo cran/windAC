@@ -18,7 +18,7 @@ surface above \code{x}, i.e., \code{FUN} evaluated at \code{x}.}
 
 \item{...}{Additional agruments to \code{FUN}.}
 
-\item{eps}{Radii argument, see details. Default is \code{10e-7}.}
+\item{eps}{Radius argument, see details. Default is \code{10e-7}.}
 }
 \value{
 Matrix
@@ -29,10 +29,9 @@ arbitrary multidimensional function at a particular location.
 }
 \details{
 This function uses the "5-point" numeric second derivative
-method advocated in numerous numerical recipie texts.  During computation
-of the second derivative, FUN will be evaluated
-capable of evaluating at locations within a hyper-elipsoid
-with cardinal radii \code{2*loc*(eps)^0.25}.
+method advocated in numerous numerical recipe texts.  During computation
+of the second derivative, FUN will be evaluated at locations within a hyper-elipsoid
+with cardinal radius \code{2*loc*(eps)^0.25}.
 
 
 A handy way to use this function is to call an optimization routine

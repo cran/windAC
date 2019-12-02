@@ -14,14 +14,13 @@
 #'
 #' @param ... Additional agruments to \code{FUN}.
 #'
-#' @param eps Radii argument, see details. Default is \code{10e-7}.
+#' @param eps Radius argument, see details. Default is \code{10e-7}.
 #'
 #'
 #' @details This function uses the "5-point" numeric second derivative
-#' method advocated in numerous numerical recipie texts.  During computation
-#' of the second derivative, FUN will be evaluated
-#' capable of evaluating at locations within a hyper-elipsoid
-#' with cardinal radii \code{2*loc*(eps)^0.25}.
+#' method advocated in numerous numerical recipe texts.  During computation
+#' of the second derivative, FUN will be evaluated at locations within a hyper-elipsoid
+#' with cardinal radius \code{2*loc*(eps)^0.25}.
 #'
 ## If those radii don't work for your function, make eps a parameter to this function and change it, possibly varying by dimension.
 #'

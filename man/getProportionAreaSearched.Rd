@@ -8,24 +8,26 @@ getProportionAreaSearched(turbinePoints, turbineName, turbinePlots,
   turbineMastRadius, maxDistance)
 }
 \arguments{
-\item{turbinePoints}{spatial points object with with data frame indicating turbine names}
+\item{turbinePoints}{Spatial points object with with data frame indicating turbine names}
 
-\item{turbineName}{string, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}}
+\item{turbineName}{Character, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}}
 
-\item{turbinePlots}{spatial polygon objects indicating the search area around the turbine points}
+\item{turbinePlots}{Spatial polygon objects indicating the search area around the turbine points}
 
-\item{turbineMastRadius}{integer, radius of the turbine mast}
+\item{turbineMastRadius}{Integer, radius of the turbine mast}
 
-\item{maxDistance}{integer, indicating how far from the turbine that searches occured}
+\item{maxDistance}{Integer, indicating how far from the turbine that searches occured}
 }
 \value{
-Data frame of proportion of area searched for each annulus. \code{distanceFromTurbine} column represents outer radius of annuli.
+Data frame of proportion of area searched for each annulus around each turbine point. \code{distanceFromTurbine} column represents outer radius of each annulus.
 }
 \description{
 Calculate proportion of area searched around wind turbine based on turbine location data and polygons of search area.
 }
 \details{
 The \code{\link[sf]{sf}} package is used to calculate overlapping areas between the searched area \code{turbinePlots} and one unit annulus around the \code{turbinePoints}. The annuli increase out to a distance of \code{maxDistance}.
+
+Caution, the function does some basic checks on the spatial objects but it is assumed that the points and polygons do not have any boundry, geometry, or other issues.
 }
 \examples{
 

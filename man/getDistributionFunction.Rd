@@ -14,10 +14,13 @@ getDistributionFunction(type, dist, ...)
 \item{...}{Currently ignored.}
 }
 \value{
-Function
+Function, the first function in the search path that matches the name \code{paste0(type, dist)}.
 }
 \description{
 Determines if the distribution functions are available. This is intended for internal use only.
+}
+\details{
+It is determined that \code{paste0(type, dist)} is a function and returns that function.  The nature of the returned function is not verified.
 }
 \examples{
 

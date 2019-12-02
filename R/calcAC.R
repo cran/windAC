@@ -3,33 +3,33 @@
 #'
 #' @title Calculate the area correction value(s) with confidence intervals
 #'
-#' @description Calculate area correction values and confidence intervals using a
+#' @description Use a fitted carcass density distribution and data describing the search area to calculate area correction values and confidence intervals using a
 #'   parametric bootstrap approach.
 #'
 #' @param distribution Character indicating the distribution, passed to
 #'   \code{\link{getDistanceProbability}}.
-#' @param paramVec Numeric vector for the parameters associated with distribution.
+#' @param paramVec Numeric vector for the parameters associated with distribution. Assumed to be in the same order as the function indicated by \code{distribution}.
 #' @param varcovVec Numeric vector for the variances and covariances for
 #'   \code{paramVec}, default is NULL, see details.
-#' @param proportionSearchDF Data frame with at least two columns: distance from
-#'   turbine and proportion of area searched at each distance.
+#' @param proportionSearchDF Data frame with at least two columns: distance of the outer edge of an annulus from
+#'   turbine and proportion of area searched within each annulus.
 #' @param distanceCol Character indicating the column name for the distance from
 #'   turbine
 #' @param proportionCol Character indicating the column name for the proportion of
 #'   area searched.
 #' @param additionalCol Character vector, default is NULL, indicating additional
-#'   columns of how the area correction value should be calculated, see examples.
-#' @param nBoot Integer, default is NULL, indicating the number of parametric
-#'   bootstrap replicates to use.
-#' @param truncBounds Numeric, default is NULL, indicating bounds for the area
-#'   correction calculation, see details.
+#'   columns of how the area correction value should be calculated, see details and examples.
+#' @param nBoot Integer, indicating the number of parametric
+#'   bootstrap replicates to use. Default is NULL, and not confidence intervals are produced.
+#' @param truncBounds Numeric, indicating bounds for the area
+#'   correction calculation, see details. Default is NULL, and the bounds are set to \code{c(0,Inf)}.
 #' @param ciLevel Numeric, default is 0.9, desired confidence level for the
 #'   bootstrap confidence interval.
 #' @param randomSeed Numeric value of random seed, default is NULL.
 #' @param ... Additional arguments passed to \code{\link{getDistanceProbability}}.
 #'
 #' @details The function \code{\link{getDistanceProbability}} is used to calculate
-#'   the probability between distances, in \code{proportionSearchDF}, and distances minus \code{unitSize}.
+#'   the probability (fraction of carcasses) in the intervals between distances in \code{proportionSearchDF}.
 #'
 #'   The \code{truncBounds} argument defaults to zero as a lower bound and infinity
 #'   as the upper bound. If a single value is provided, it is assumed as the upper
@@ -37,7 +37,7 @@
 #'   \code{max(truncBounds)} is the upper bound and \code{min(truncBounds)} is the
 #'   lower bound.
 #'
-#'   If \code{varcovVec} is NULL, then no parametric bootstrapping is done. The
+#'   If \code{varcovVec} is NULL, then parametric bootstrapping is impossible and a confidence interval is not estimated. The
 #'   \code{varcovVec} should be in such an order that correctly fills the lower
 #'   triangle including the diagonal. The first column is filled, then the second,
 #'   and so on. This forms the variance-covariance matrix for the parameters.
@@ -45,6 +45,8 @@
 #'   If \code{nBoot} is greater than zero, a parametric bootstrap is done.
 #'   Bootstrap parameters are generated using the \code{\link[mvtnorm]{rmvnorm}}
 #'   function.
+#'
+#' If the additionalCol argument is not NULL, separate area corrections are estimated for each unique value within the column.
 #'
 #' @return \code{windAC} object
 #'
@@ -298,7 +300,7 @@ calcAC <- function(distribution,paramVec,varcovVec=NULL,proportionSearchDF,dista
         allDat[,probCol] <- getDistanceProbability(q=allDat[,distanceCol],distribution = distn,
                                         param1 = paramMatrix[i, 1],
                                         param2 = paramMatrix[i, 2],
-                                        tbound = c(tLow, tUp))
+                                        tbound = c(tLow, tUp),...)
 
         allDat[,acCol] <- allDat[,proportionCol]*allDat[,probCol]
 

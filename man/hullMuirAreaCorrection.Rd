@@ -3,11 +3,11 @@
 \name{hullMuirAreaCorrection}
 \alias{hullMuirAreaCorrection}
 \title{Calculate an area correction based on the Hull and Muir (2010) maximum
-  distance}
+  distance and a triangular distribution as proposed by Huso and Dalthorp (2014).}
 \usage{
 hullMuirAreaCorrection(hubHeight, bladeRadius, lowerBound = 0,
-  proportionSearchDF, distanceCol, proportionCol, additionalCol = NULL,
-  ...)
+  upperBound = Inf, proportionSearchDF, distanceCol, proportionCol,
+  additionalCol = NULL, ...)
 }
 \arguments{
 \item{hubHeight}{Numeric, turbine hub height.}
@@ -15,6 +15,8 @@ hullMuirAreaCorrection(hubHeight, bladeRadius, lowerBound = 0,
 \item{bladeRadius}{Numeric, turbine blade radius.}
 
 \item{lowerBound}{Numeric, default is zero, see \code{\link{triangleProb}}.}
+
+\item{upperBound}{Numeric, default is \code{Inf}, see \code{\link{triangleProb}}.}
 
 \item{proportionSearchDF}{Data frame with at least two columns: distance from
 turbine and proportion of area searched at each distance.}
@@ -36,17 +38,17 @@ Data frame of size class, \code{additionalCol} columns, and area
 }
 \description{
 Calculate the maximum fall distance from a turbine using the
-  regression model from Hull and Muir (2010). Calculate the proabilities
-  between one-unit increments of a right triangle distribution. Use the
+  regression model from Hull and Muir (2010). Calculate the carcass fall proabilities
+  between one-unit increments of a right triangle distribution as proposed by Huso and Dalthorp (2014). Use the
   probabilities and proportion of area searched to calculate an area correction
   value.
 }
 \details{
 The maximum Hull and Muir distances are calculated using
-  \code{\link{hullMuirMaxDistance}} and the probabilities are calculated using
+  \code{\link{hullMuirMaxDistance}} and the carcass fall probabilities are calculated using
   \code{\link{triangleProb}}. The probabilites are multipled by the proportion
-  of area searched from \code{proportionSearchDF} by distance. The products are
-  summed by size class and \code{additionalCol}.
+  of area searched from \code{proportionSearchDF} by distance. These products are
+  summed across distances by size class and \code{additionalCol}.
 
   The distances in the \code{distanceCol} will be rounded to the nearest
   integer for matching up with the probabilities. The distances, \code{hubHeight}, and \code{bladeRadius} are assumed to be in the same units.
@@ -78,4 +80,11 @@ hullMuirAreaCorrection(hubHeight = 87.5, bladeRadius = 62.5,
 Hull, C. L., & Muir, S. (2010).
   Search areas for monitoring bird and bat carcasses at wind farms using a Monte-Carlo model.
   Australasian Journal of Environmental Management, 17(2), 77-87.
+
+Huso, M. & Dalthorp,D (2014).
+Accounting for Unsearched Areas in Estimating Wind Turbine-Caused Fatality.
+The Journal of Wildlife Management. 78. 10.1002/jwmg.663.
+}
+\seealso{
+hullMuirMaxDistance triangleProb
 }

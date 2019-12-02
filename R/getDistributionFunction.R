@@ -11,7 +11,10 @@
 #' @param dist Character, typically something like 'norm', 'gamma', etc.
 #' @param ... Currently ignored.
 #'
-#' @return Function
+#' @details It is determined that \code{paste0(type, dist)} is a function and returns that function.  The nature of the returned function is not verified.
+
+#'
+#' @return Function, the first function in the search path that matches the name \code{paste0(type, dist)}.
 #'
 #' @export getDistributionFunction
 #'
@@ -21,6 +24,14 @@
 #'
 
 getDistributionFunction <- function(type,dist,...){
+
+    if(!is.character(type)){
+        stop('argument type must be a character')
+    }#end if
+
+    if(!is.character(dist)){
+        stop('argument dist must be a character')
+    }#end if
 
 
     funName <- paste0(type, dist)

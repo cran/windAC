@@ -52,7 +52,7 @@ rtrunc(n, distribution, tbound = c(-Inf, Inf), ...)
 Truncated probability density function, truncated cumulative density function, inverse truncated cumulative density function, and random variates from a truncated distribution.
 }
 \details{
-The non truncated distribution functions are assumed to be available. For example if the Normal distribution is desired then used \code{distribution='norm'}, the functions then look for 'qnorm', 'pnorm', etc.
+The non truncated distribution functions are assumed to be available. For example if the normal distribution is desired then used \code{distribution='norm'}, the functions then look for 'qnorm', 'pnorm', etc.
 
 The \code{max(tbound)} and \code{min(tbound)} are considered the upper and lower truncation bounds, respectively.
 

@@ -5,15 +5,17 @@
 #' @description Calculate proportion of area searched around wind turbine based on turbine location data and polygons of search area.
 #'
 #'
-#' @param turbinePoints spatial points object with with data frame indicating turbine names
-#' @param turbineName string, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}
-#' @param turbinePlots spatial polygon objects indicating the search area around the turbine points
-#' @param turbineMastRadius integer, radius of the turbine mast
-#' @param maxDistance integer, indicating how far from the turbine that searches occured
+#' @param turbinePoints Spatial points object with with data frame indicating turbine names
+#' @param turbineName Character, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}
+#' @param turbinePlots Spatial polygon objects indicating the search area around the turbine points
+#' @param turbineMastRadius Integer, radius of the turbine mast
+#' @param maxDistance Integer, indicating how far from the turbine that searches occured
 #'
 #' @details The \code{\link[sf]{sf}} package is used to calculate overlapping areas between the searched area \code{turbinePlots} and one unit annulus around the \code{turbinePoints}. The annuli increase out to a distance of \code{maxDistance}.
 #'
-#' @return Data frame of proportion of area searched for each annulus. \code{distanceFromTurbine} column represents outer radius of annuli.
+#' Caution, the function does some basic checks on the spatial objects but it is assumed that the points and polygons do not have any boundry, geometry, or other issues.
+#'
+#' @return Data frame of proportion of area searched for each annulus around each turbine point. \code{distanceFromTurbine} column represents outer radius of each annulus.
 #'
 #' @export getProportionAreaSearched
 #'
@@ -72,7 +74,15 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
         turbinePlots <- sf::st_as_sf(turbinePlots)
     }#end if
 
-
+    # ensure correct geometry type from inputs
+    if (!any(sf::st_geometry_type(turbinePlots) %in% c("POLYGON", "MULTIPOLYGON"))) {
+        stop("'turbinePlots' input must be of sf geometry type 'POLYGON' or 'MULTIPOLYGON'")
+    }
+    
+    if (!any(sf::st_geometry_type(turbinePoints) %in% c("POINT", "MULTIPOINT"))) {
+        stop("'turbinePoints' input must be of sf geometry type 'POINT' or 'MULTIPOINT'")
+    }
+        
     ## Check to see if the data is longitude/latitude data.
     if(isTRUE(sf::st_is_longlat(turbinePoints))) {
         stop(paste("sf::st_is_longlat detects that turbinePoints uses a longitude/latitude coordinate system.",
@@ -137,14 +147,14 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
 
 
         ## buffer with radius R
-        cirR <- sf::st_sf(sf::st_buffer(st_geometry(turbPoints),dist=R,nQuadSegs=1000))
+        cirR <- sf::st_sf(sf::st_buffer(sf::st_geometry(turbPoints),dist=R,nQuadSegs=1000))
         names(cirR)[1] <- "geometry"
         sf::st_geometry(cirR) <- "geometry"
         cirR$R <- R
         cirR$cirName <- as.data.frame(sf::st_drop_geometry(turbPoints))[,turbName]
 
         ## buffer with radius R-1
-        cirRminus1 <- sf::st_sf(sf::st_buffer(st_geometry(turbPoints),dist=R-1,nQuadSegs=1000))
+        cirRminus1 <- sf::st_sf(sf::st_buffer(sf::st_geometry(turbPoints),dist=R-1,nQuadSegs=1000))
         names(cirRminus1)[1] <- "geometry"
         sf::st_geometry(cirRminus1) <- "geometry"
         cirRminus1$Rminus1<- R-1
@@ -162,7 +172,7 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
                                },fxn_cirR = cirR,fxn_cirRminus1 = cirRminus1))
 
 
-        ##J$ might also want to get rid of cirName as well
+        ## columns not needed any more
         annuliExtra[,c('Rminus1','cirNameMinus1')] <- NULL
 
         annuli <- rbind(annuli,annuliExtra)
@@ -185,12 +195,35 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
     ## only care about areas within a turbine
     overlap <- overlapAll[as.data.frame(sf::st_drop_geometry(overlapAll))[,turbName]==as.data.frame(sf::st_drop_geometry(overlapAll))[,'cirName'],]
 
-    ## only need the data
-    turbAnnuli <- sf::st_drop_geometry(overlap)
+
+    overlap$areaSearched <- as.numeric(sf::st_area(overlap))
+
+
+    ## ensure all distances go out to the max distance
+    turbAnnuli <- data.frame()
+    for(sL in unique(overlap$cirName)){
+        thisTurb <- sf::st_drop_geometry(subset(overlap,overlap$cirName==sL))
+
+        thisMaxR <- max(thisTurb$R)
+        needR <- (thisMaxR+1):maxDist
+        if(thisMaxR<maxDist){
+
+            newTurbR <- thisTurb[rep(1,times=length(needR)),]
+            newTurbR$R <- needR
+            newTurbR$areaSearched <- 0
+
+            turbAnnuli <- rbind(turbAnnuli,rbind(thisTurb,newTurbR))
+
+        }else{
+            turbAnnuli <- rbind(turbAnnuli,thisTurb)
+        }#end else if
+
+    }#end for sL
+
+    row.names(turbAnnuli) <- NULL
+
     ## changes distances to be from the turbine mast edge
     turbAnnuli$distanceFromTurbine <- turbAnnuli$R-mastRad
-    ## area searched in the annulus
-    turbAnnuli$areaSearched <- as.numeric(sf::st_area(overlap))
     ## total area of the annulus
     turbAnnuli$annulusArea <- with(turbAnnuli,R^2-(R-1)^2)*pi
     ## prop area searched
@@ -198,6 +231,7 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
 
     ## removes names for internal use
     turbAnnuli[,c('R','cirName')] <- NULL
+
 
     return(turbAnnuli)
 

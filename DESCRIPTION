@@ -1,8 +1,8 @@
 Package: windAC
 Type: Package
 Title: Area Correction Methods
-Version: 1.2.0
-Date: 2019-12-02
+Version: 1.2.1
+Date: 2020-02-20
 Authors@R: c(person("Jared", "Studyvin", role = c("aut", "cre"),
                      email = "jstudyvin@west-inc.com"), person("Paul","Rabie",role=c("aut")),person("Daniel","Riser-Espinoza",role=c("aut")),person("Trent","McDonald",role=c("ctb")))
 Author: Jared Studyvin [aut, cre],
@@ -16,6 +16,6 @@ Description: Post-construction fatality monitoring studies at wind facilities ar
 License: GNU General Public License
 RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2019-12-02 16:59:10 UTC; jstudyvin
+Packaged: 2020-02-21 14:44:08 UTC; jstudyvin
 Repository: CRAN
-Date/Publication: 2019-12-02 19:30:03 UTC
+Date/Publication: 2020-02-21 15:10:03 UTC

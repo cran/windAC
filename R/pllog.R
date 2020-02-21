@@ -49,6 +49,8 @@ pllog <- function(q, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE,...)
 
 #################################################
 
+    ##support is 0 to Inf
+    q[q<0] <- 0
 
     out <- stats::plogis(log(q), location = scale, scale = shape)
 

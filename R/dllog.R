@@ -60,8 +60,11 @@
 dllog <- function(x, shape = 1, scale = 1, log = FALSE,...){
 
 
-    llx <- stats::dlogis(log(x), location = scale, scale = shape, log = FALSE)/x
+    logX <- suppressWarnings(log(x))
 
+    llx <- stats::dlogis(logX, location = scale, scale = shape, log = FALSE)/x
+
+    ## support is 0 to Inf
     llx[x<=0] <- 0
 
     if (log){

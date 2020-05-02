@@ -4,17 +4,15 @@
 \alias{LogLogistic}
 \alias{dllog}
 \alias{pllog}
-\alias{qllog}
 \alias{rllog}
+\alias{qllog}
 \title{Log-Logistic Distribution}
 \usage{
 dllog(x, shape = 1, scale = 1, log = FALSE, ...)
 
-pllog(q, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE,
-  ...)
+pllog(q, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE, ...)
 
-qllog(p, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE,
-  ...)
+qllog(p, shape = 1, scale = 1, lower.tail = TRUE, log.p = FALSE, ...)
 
 rllog(n, shape = 1, scale = 1, ...)
 }

@@ -5,8 +5,7 @@
 \title{Calculate probabilities from a triangle distribution based on Hull and
   Muir (2010) maximum distance as proposed by Huso and Dalthorp (2014).}
 \usage{
-triangleProb(hubHeight, bladeRadius, lowerBound = 0, upperBound = Inf,
-  ...)
+triangleProb(hubHeight, bladeRadius, lowerBound = 0, upperBound = Inf, ...)
 }
 \arguments{
 \item{hubHeight}{Numeric, turbine hub height.}

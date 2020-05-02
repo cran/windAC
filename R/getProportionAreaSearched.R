@@ -125,7 +125,21 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
                    paste(sf::st_is_valid(turbinePlots,reason=TRUE),collapse=", ")))
     }#end if
 
+    # ensure that we have all the points and plots that we need
 
+    # stop if we have fewer points than plots
+    if(any(!turbinePlots[[turbineName]] %in% turbinePoints[[turbineName]])) {
+        missingPoints <- paste(turbinePlots[[turbineName]][!turbinePlots[[turbineName]] %in% turbinePoints[[turbineName]]], collapse = ", ")
+        stop(paste0("The folowing turbine points(s) are not present in 'turbinePoints' but are in turbinePlots:\n ",  missingPoints))
+    }
+    
+    # warn if we have fewer plots than points
+    if(any(!turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]])) {
+        missingPlots <- paste(turbinePoints[[turbineName]][!turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]]], collapse = ", ")
+        warning(paste0("The following turbine polygons(s) are not present in 'turbinePlots' but are in turbinePoints:\n ",  missingPlots))
+    }
+    
+    
     ## for internal use
     turbPoints <- turbinePoints
     turbName <- turbineName
@@ -164,7 +178,7 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
 
         ## create annuli for each meter band out from turbine mast edge
         annuliExtra <- do.call("rbind",
-                               lapply(1:nrow(turbinePlots), function(x,fxn_cirR,fxn_cirRminus1) {
+                               lapply(1:nrow(turbPlots), function(x,fxn_cirR,fxn_cirRminus1) {
                                    tempCirR <- fxn_cirR[x, ]
                                    tempCirRminus1 <- fxn_cirRminus1[x, ]
                                    tempAnnuliExtra <- suppressWarnings(sf::st_difference(tempCirR, tempCirRminus1))

@@ -4,12 +4,14 @@
 \name{proportionAreaSearched}
 \alias{proportionAreaSearched}
 \title{Proportion of area searched example data set}
-\format{A data frame with 400 rows and 3 variables:
+\format{
+A data frame with 400 rows and 3 variables:
 \describe{
   \item{plotType}{Either FULL or RP, the type of plot searched at the turbine}
   \item{distanceFromTurbine}{The outer radius distance from the turbine, for the one unit annulus.}
   \item{proportionAreaSearched}{The proportion of area searched within the annulus at the turbine.}
-}}
+}
+}
 \usage{
 data(proportionAreaSearched)
 }

@@ -4,7 +4,8 @@
 \name{carcassDistance}
 \alias{carcassDistance}
 \title{Carcass distance example data set}
-\format{A data frame with 56 rows and 6 variables:
+\format{
+A data frame with 56 rows and 6 variables:
 \describe{
   \item{season}{The season in which that carcass was found.}
   \item{plotType}{The plot type (either FULL or RP) that was being searched when the carcass was found.}
@@ -12,7 +13,8 @@
 \item{distanceFromTurbine}{ Meters, carcass distance from the turbine.}
 \item{compassBearingDegree}{Degrees, the compass bearing from the turbine to the carcass location. Zero degrees is north, 90 degrees is east, etc.}
 \item{probabilityDetection}{The summarized probability of detection from the bias trial information.}
-}}
+}
+}
 \usage{
 data(carcassDistance)
 }

@@ -4,7 +4,8 @@
 \name{hallingstad}
 \alias{hallingstad}
 \title{Data sets from Hallingstad et al. 2018}
-\format{The carcass element is a data frame with 26 rows and 3 variables:
+\format{
+The carcass element is a data frame with 26 rows and 3 variables:
 \describe{
   \item{study}{The name of the study for that wind farm.}
   \item{species}{The species of the carcass found.}
@@ -21,7 +22,8 @@ The weight element is a data frame with 2414 rows and 7 variables:
 \item{scaledFatalityRate}{The fatality rate at a study divided by the sum of the fatality rates across all studies considered, does not change with distance from turbine.}
 \item{finalWeight}{The product of
 \code{detectionProbability*proportionAreaSearched*scaledNumberTurbine*scaledFatalityRate}.}
-}}
+}
+}
 \usage{
 data(hallingstad)
 }

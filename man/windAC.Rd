@@ -3,7 +3,6 @@
 \docType{package}
 \name{windAC}
 \alias{windAC}
-\alias{windAC-package}
 \title{A package for calculating area correction values for fatality estimation at wind farms.}
 \description{
 Post-construction fatality monitoring studies at wind facilities are based on data from searches for bird and bat carcasses in plots beneath turbines. Bird and bat carcasses can fall outside of the search plot. Bird and bat carcasses from wind turbines often fall outside of the searched area. To compensate, area correction (AC) estimations are calculated to estimate the percentage of fatalities that fall within the searched area versus those that fall outside of it. This package provides two likelihood based methods and one physics based method (Hull and Muir (2010), Huso and Dalthorp (2014)) to estimate the carcass fall distribution. There are also functions for calculating the proportion of area searched within one unit annuli, log logistic distribution functions, and truncated distribution functions.

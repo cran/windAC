@@ -10,11 +10,23 @@
 \usage{
 dtrunc(x, distribution, tbound = c(-Inf, Inf), ..., log = FALSE)
 
-ptrunc(q, distribution, tbound = c(-Inf, Inf), ..., lower.tail = TRUE,
-  log.p = NULL)
+ptrunc(
+  q,
+  distribution,
+  tbound = c(-Inf, Inf),
+  ...,
+  lower.tail = TRUE,
+  log.p = NULL
+)
 
-qtrunc(p, distribution, tbound = c(-Inf, Inf), ..., lower.tail = TRUE,
-  log.p = NULL)
+qtrunc(
+  p,
+  distribution,
+  tbound = c(-Inf, Inf),
+  ...,
+  lower.tail = TRUE,
+  log.p = NULL
+)
 
 rtrunc(n, distribution, tbound = c(-Inf, Inf), ...)
 }

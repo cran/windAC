@@ -5,9 +5,17 @@
 \title{Calculate an area correction based on the Hull and Muir (2010) maximum
   distance and a triangular distribution as proposed by Huso and Dalthorp (2014).}
 \usage{
-hullMuirAreaCorrection(hubHeight, bladeRadius, lowerBound = 0,
-  upperBound = Inf, proportionSearchDF, distanceCol, proportionCol,
-  additionalCol = NULL, ...)
+hullMuirAreaCorrection(
+  hubHeight,
+  bladeRadius,
+  lowerBound = 0,
+  upperBound = Inf,
+  proportionSearchDF,
+  distanceCol,
+  proportionCol,
+  additionalCol = NULL,
+  ...
+)
 }
 \arguments{
 \item{hubHeight}{Numeric, turbine hub height.}

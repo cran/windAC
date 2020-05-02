@@ -4,9 +4,20 @@
 \alias{calcAC}
 \title{Calculate the area correction value(s) with confidence intervals}
 \usage{
-calcAC(distribution, paramVec, varcovVec = NULL, proportionSearchDF,
-  distanceCol, proportionCol, additionalCol = NULL, nBoot = NULL,
-  truncBounds = NULL, ciLevel = 0.9, randomSeed = NULL, ...)
+calcAC(
+  distribution,
+  paramVec,
+  varcovVec = NULL,
+  proportionSearchDF,
+  distanceCol,
+  proportionCol,
+  additionalCol = NULL,
+  nBoot = NULL,
+  truncBounds = NULL,
+  ciLevel = 0.9,
+  randomSeed = NULL,
+  ...
+)
 }
 \arguments{
 \item{distribution}{Character indicating the distribution, passed to
@@ -40,7 +51,7 @@ bootstrap confidence interval.}
 
 \item{randomSeed}{Numeric value of random seed, default is NULL.}
 
-\item{...}{Additional arguments passed to \code{\link{getDistanceProbability}}.}
+\item{...}{Additional arguments passed to \code{\link{getDistanceProbability}} and \code{\link[mvtnorm]{rmvnorm}}.}
 }
 \value{
 \code{windAC} object

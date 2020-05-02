@@ -26,7 +26,7 @@
 #' @param ciLevel Numeric, default is 0.9, desired confidence level for the
 #'   bootstrap confidence interval.
 #' @param randomSeed Numeric value of random seed, default is NULL.
-#' @param ... Additional arguments passed to \code{\link{getDistanceProbability}}.
+#' @param ... Additional arguments passed to \code{\link{getDistanceProbability}} and \code{\link[mvtnorm]{rmvnorm}}.
 #'
 #' @details The function \code{\link{getDistanceProbability}} is used to calculate
 #'   the probability (fraction of carcasses) in the intervals between distances in \code{proportionSearchDF}.
@@ -253,7 +253,7 @@ calcAC <- function(distribution,paramVec,varcovVec=NULL,proportionSearchDF,dista
     } # end if else
 
 
-    # Check random seed.
+    ## Check random seed.
     if (!is.null(randomSeed)) {
       if (!is.numeric(randomSeed)) {
         stop('argument randomSeed needs to be numeric')
@@ -265,9 +265,14 @@ calcAC <- function(distribution,paramVec,varcovVec=NULL,proportionSearchDF,dista
     ## if bootstrap then first row is the original paramters
     if(numBoot>0){
 
+        ## to catch bad arguments in dots for mvtnorm::rmvnorm
+        dotify = function(fn, ...){
+            do.call(fn, as.list(match.call()[names(match.call()) %in% names(formals(fn))]))
+        }#end dotify function
+
         set.seed(randomSeed)
-        ##rparam <- mvtnorm::rmvnorm(numBoot,mean=param,sigma=S)
-        rparam <- mvtnorm::rmvnorm(numBoot,mean=param,sigma=S)
+        ##rparam <- mvtnorm::rmvnorm(n=numBoot,mean=param,sigma=S)
+        rparam <- dotify(fn=mvtnorm::rmvnorm,n=numBoot,mean=param,sigma=S,...)
 
         ## first row is the original parameters
         paramMatrix <- rbind(param,rparam)
@@ -290,7 +295,7 @@ calcAC <- function(distribution,paramVec,varcovVec=NULL,proportionSearchDF,dista
     }
 
 
-    t1 <- Sys.time()
+
     ## Calculate area correction.
     acValues <- data.frame()
     for(i in 1:nrow(paramMatrix)){
@@ -310,8 +315,7 @@ calcAC <- function(distribution,paramVec,varcovVec=NULL,proportionSearchDF,dista
         acValues <- rbind(acValues,thisRep)
 
     }#end for i
-    t2 <- Sys.time()
-    t2-t1 ##Time difference of 38.41304 secs
+
 
     ## Set point estimates and confidence intervals.
     pointEst <- acValues[acValues[,repCol]==0,]

@@ -4,8 +4,13 @@
 \alias{getProportionAreaSearched}
 \title{Create proportion of area searched table from spatial data}
 \usage{
-getProportionAreaSearched(turbinePoints, turbineName, turbinePlots,
-  turbineMastRadius, maxDistance)
+getProportionAreaSearched(
+  turbinePoints,
+  turbineName,
+  turbinePlots,
+  turbineMastRadius,
+  maxDistance
+)
 }
 \arguments{
 \item{turbinePoints}{Spatial points object with with data frame indicating turbine names}

@@ -4,10 +4,14 @@
 \name{turbineSpatial}
 \alias{turbineSpatial}
 \title{Data sets of spatial area searched at a wind farm}
-\format{The \code{turbinePoints} element is a spatial data frame with:
+\format{
+
+
+The \code{turbinePoints} element is a spatial data frame with:
 \describe{
   \item{\code{turbName}}{The name of the turbine for the search plot.}
-}}
+}
+}
 \usage{
 data(turbineSpatial)
 }

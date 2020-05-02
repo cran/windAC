@@ -4,8 +4,14 @@
 \alias{geometricRoadPadPropSearchTable}
 \title{Calculate the areas of intersection of a series of nested annuli with an idealized access road and turbine pad.}
 \usage{
-geometricRoadPadPropSearchTable(padRadius, roadWidth, maxSearchRadius,
-  mastRadius, annulusWidth = 1, ...)
+geometricRoadPadPropSearchTable(
+  padRadius,
+  roadWidth,
+  maxSearchRadius,
+  mastRadius,
+  annulusWidth = 1,
+  ...
+)
 }
 \arguments{
 \item{padRadius}{Integer, radius of turbine pad from the center of the turbine.}

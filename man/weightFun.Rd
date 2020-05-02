@@ -4,8 +4,17 @@
 \alias{weightFun}
 \title{weight function}
 \usage{
-weightFun(x, propTable, type, typeCol, distanceCol, propCol,
-  xFun = ceiling, maxDistance = NULL, ...)
+weightFun(
+  x,
+  propTable,
+  type,
+  typeCol,
+  distanceCol,
+  propCol,
+  xFun = ceiling,
+  maxDistance = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{Numeric vector.}

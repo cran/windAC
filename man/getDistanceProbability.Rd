@@ -4,8 +4,15 @@
 \alias{getDistanceProbability}
 \title{Calculate probabilities within one unit increments.}
 \usage{
-getDistanceProbability(q, distribution, param1, param2 = NA,
-  tbound = c(-Inf, Inf), unitSize = 1, ...)
+getDistanceProbability(
+  q,
+  distribution,
+  param1,
+  param2 = NA,
+  tbound = c(-Inf, Inf),
+  unitSize = 1,
+  ...
+)
 }
 \arguments{
 \item{q}{Vector of quantiles.}

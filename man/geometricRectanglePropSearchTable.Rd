@@ -4,8 +4,13 @@
 \alias{geometricRectanglePropSearchTable}
 \title{Create proportion of area searched table for a rectangular full plot}
 \usage{
-geometricRectanglePropSearchTable(side1, side2 = side1, mastRadius,
-  annulusWidth = 1, ...)
+geometricRectanglePropSearchTable(
+  side1,
+  side2 = side1,
+  mastRadius,
+  annulusWidth = 1,
+  ...
+)
 }
 \arguments{
 \item{side1}{Numeric, length of the side of the rectangle}

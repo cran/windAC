@@ -31,14 +31,16 @@
 #' If X is a random variable distributed according to a logistic distribution, then Y = exp(X) has a log-logistic distribution.
 #'
 #' The log-logistic distribution with parameters \code{shape = a} and \code{scale = s} has density
-#' \deqn{f(x) = \frac{(\frac{x}{\exp{s}})^{\frac{1}{a} - 1}}{a\exp{s}(1+(\frac{x}{\exp{s}})^{1/a})^2}}
-#' for \code{x >= 0}, \code{a > 1}, and \code{s > 0}. The median is \code{log(s)}, mean is
-#' \deqn{\frac{a\pi\exp{s}}{sin(a*\pi)}}
-#' for \code{1/s > 1}. The variance is
-#' \deqn{(log(s))^2(\frac{2}{a(sin(2/a))}- \frac{1}{a^2(sin^2(1/a))})}
-#' for \code{1/s > 2}. The mode is
+#' \deqn{f(x) = \frac{(\frac{1}{a*exp(s))})(\frac{x}{\exp{s}})^{\frac{1}{a} - 1}}{(1+(\frac{x}{\exp{s}})^{1/a})^2}}
+#' for \code{x >= 0}, \code{a > 1}, and \code{s > 0}.
+#'
+#' The median is \code{exp(s)}, mean is
+#' \deqn{\frac{a\pi*exp(s)}{sin(a*\pi)}}
+#' for \code{1/a > 1}. The variance is
+#' \deqn{(exp(s))^2(\frac{2*\pi*a}{(sin(2*pi*a))}- \frac{(a*\pi)^2}{(sin^2(a*\pi))})}
+#' for \code{1/a > 2}. The mode is
 #' \deqn{exp(s)(\frac{(1/a) - 1}{(1/a) + 1})^{a}}
-#' for \code{1/s > 1} otherwise it is zero.
+#' for \code{1/a > 1} otherwise it is zero.
 #'
 #' @return \code{dllog} returns vector of the densities.
 #'
@@ -76,7 +78,6 @@ dllog <- function(x, shape = 1, scale = 1, log = FALSE,...){
     return(out)
 
 } ## dllog function
-
 
 
 

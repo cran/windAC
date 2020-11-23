@@ -2,7 +2,7 @@
 % Please edit documentation in R/getStartValue.R
 \name{getStartValue}
 \alias{getStartValue}
-\title{Calculate the start values for the to be passed to the optimizer.}
+\title{Calculate the start values to be passed to the optimizer.}
 \usage{
 getStartValue(x, distribution, w = rep(1, length(x)), ...)
 }

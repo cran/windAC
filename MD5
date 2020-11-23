@@ -1,4 +1,4 @@
-0dec0f5cdf0c0d394b18e4c197c08d2b *DESCRIPTION
+4700aa2eeac5acd39c4ae81b0ff7610a *DESCRIPTION
 fb32dcbb0bb9be44047d4e50f1f6cd24 *NAMESPACE
 289872ade331fc0b8f48c3a4c70585d8 *R/calcAC.R
 ff42782dc7553204173d44006472664e *R/carcassDistance.R
@@ -12,8 +12,8 @@ c0b0a028bf5d4ea5109153a27c5f7700 *R/geometricRoadPadPropSearchTable.R
 cd3611db75021313497bbef270fd8122 *R/getDistanceProbability.R
 18e36547be1c4b2de4d7ebfedaa510cf *R/getDistributionFunction.R
 244922ada9223d5bfe39ae5442fb62d1 *R/getDistributionSummary.R
-e5ee23183f5ed331589efa14cf42e924 *R/getProportionAreaSearched.R
-46aafe04706e59b8b6c54b6e9fd5ced0 *R/getStartValue.R
+80a9b986618cce0ac1896df42f539755 *R/getProportionAreaSearched.R
+2647c50778d7b60bb937438f7a6263ce *R/getStartValue.R
 b99fec82189169f7391e00585990d9e2 *R/hallingstad.R
 e41857a258df006e444bc7efc9010602 *R/hullMuirAreaCorrection.R
 273749c8f8de1a07025dcfed370711d6 *R/hullMuirMaxDistance.R
@@ -47,7 +47,7 @@ be8d8cd49e34b3dd287427fe2afddec9 *man/getDistanceProbability.Rd
 60ef25eded3f4c71d0dfbe8054009c4a *man/getDistributionFunction.Rd
 07234f43ecdca69d5d1ecdfeb3be679a *man/getDistributionSummary.Rd
 f8f8f19d8a73701600f399c51e168278 *man/getProportionAreaSearched.Rd
-ab8091f533bdc3b688ac7e15cccdd539 *man/getStartValue.Rd
+38f054e6ce82830f1f5f931213528d28 *man/getStartValue.Rd
 ce2e8f3b7bb74a9ae82f320b80fe20ad *man/hallingstad.Rd
 e46d27dc2ffd8b2f522e3355e012f077 *man/hullMuirAreaCorrection.Rd
 8270ac6864f3c5ab764cc0ddb4f96924 *man/hullMuirMaxDistance.Rd

@@ -127,18 +127,20 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
 
     # ensure that we have all the points and plots that we need
 
-    # stop if we have fewer points than plots
+    # warn if we have fewer plots than points
+    if(any(!turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]])) {
+        missingPlots <- paste(turbinePoints[[turbineName]][!turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]]], collapse = ", ")
+        warning(paste0("The following turbinePoints do not have matching polygons in 'turbinePlots' and will be dropped:\n ",  missingPlots))
+    }
+    
+    # drop points that are not in plots
+    turbinePoints <- turbinePoints[turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]], ]
+    
+    # stop if we have fewer points than plots - this will also catch points that were dropped due to inconsistent namings in the line above
     if(any(!turbinePlots[[turbineName]] %in% turbinePoints[[turbineName]])) {
         missingPoints <- paste(turbinePlots[[turbineName]][!turbinePlots[[turbineName]] %in% turbinePoints[[turbineName]]], collapse = ", ")
         stop(paste0("The folowing turbine points(s) are not present in 'turbinePoints' but are in turbinePlots:\n ",  missingPoints))
     }
-    
-    # warn if we have fewer plots than points
-    if(any(!turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]])) {
-        missingPlots <- paste(turbinePoints[[turbineName]][!turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]]], collapse = ", ")
-        warning(paste0("The following turbine polygons(s) are not present in 'turbinePlots' but are in turbinePoints:\n ",  missingPlots))
-    }
-    
     
     ## for internal use
     turbPoints <- turbinePoints
@@ -178,7 +180,7 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
 
         ## create annuli for each meter band out from turbine mast edge
         annuliExtra <- do.call("rbind",
-                               lapply(1:nrow(turbPlots), function(x,fxn_cirR,fxn_cirRminus1) {
+                               lapply(1:nrow(turbPoints), function(x,fxn_cirR,fxn_cirRminus1) {
                                    tempCirR <- fxn_cirR[x, ]
                                    tempCirRminus1 <- fxn_cirRminus1[x, ]
                                    tempAnnuliExtra <- suppressWarnings(sf::st_difference(tempCirR, tempCirRminus1))

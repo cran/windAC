@@ -7,7 +7,7 @@
 #'
 #' @name getStartValue
 #'
-#' @title Calculate the start values for the to be passed to the optimizer.
+#' @title Calculate the start values to be passed to the optimizer.
 #'
 #' @description Calculate start values for \code{\link{weightedLikelihood}} or \code{\link{weightedDistribution}}.
 #'
@@ -162,7 +162,8 @@ getStartValue <- function(x,distribution,w=rep(1,length(x)),...){
                   cauchy=c(wmean,wvar), ## location and scale
                   chisq=c(wmean), ## degrees of freedom
                   exp=c(1/wmean), ## rate
-                  lnorm=lnormStart(wx=w*x) ## meanlog and sdlog
+                  lnorm=lnormStart(wx=w*x), ## meanlog and sdlog
+                  logis=c(wmean, sqrt(3*wvar)/pi) ## location and scale
                   ) #end switch
     return(out)
 } #end function getStartValue

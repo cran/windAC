@@ -20,7 +20,7 @@
 #'
 #'
 #'
-#' Two sets of distribution functions are available. Log logistic distribution functions (see \code{\link{dllog}}). These are a transformation of the logistic distribution and use the base R functions (see \code{\link[stats]{dlogis}}).
+#' Two sets of distribution functions are available. Log logistic distribution functions (see \code{\link{dllog}}). These are a transformation of the logistic distribution and use the base R functions (see \code{\link[stats]{Logistic}}).
 #' The second is truncation functions (see \code{\link{dtrunc}}), that provide truncation for R function distributions.
 #'
 #'

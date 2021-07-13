@@ -18,7 +18,7 @@
 #'   turbines for bird and bat fatalities. This function creates a data frame of
 #'   proportion of area searched within each annulus ring on an idealized road and pad.
 #' The turbine is assumed to be centered on a perfectly circular turbine pad with radius \code{padRadius}, and a perfectly straight access road of width \code{roadWidth} is oriented from the center of the circle away from the turbine.
-#' (The resulting road and pad looks like rather like a lollipop.)
+#' (The resulting road and pad looks rather like a lollipop.)
 #'
 #'   The \code{mastRadius} argument is to account for the area taken up by the turbine mast.
 #'
@@ -113,11 +113,14 @@ geometricRoadPadPropSearchTable <- function(padRadius,roadWidth,maxSearchRadius,
     propSearch <- data.frame(distanceFromTurbine=outerRadius[-1]-mR,
                              distanceFromTurbCenter=outerRadius[-1],
                              areaSearched=sectorArea,
-                             annulusArea=(diff(outerRadius^2)*pi),
-                             proportionAreaSearched=sectorArea/(diff(outerRadius^2)*pi))
+                             annulusArea=(diff(outerRadius^2)*pi))
 
     ## all of the pad is considered searched
-    propSearch$proportionAreaSearched[propSearch$distanceFromTurbCenter<=pR] <- 1
+    propSearch[propSearch$distanceFromTurbCenter<=pR,'areaSearched'] <- propSearch[propSearch$distanceFromTurbCenter<=pR,'annulusArea']
+
+
+    ## calculate prop search
+    propSearch$proportionAreaSearched <- propSearch$areaSearched/propSearch$annulusArea
 
     ## remove from output
     propSearch$distanceFromTurbCenter <- NULL

@@ -20,7 +20,7 @@
 #'
 #' The maximum horizontal distance is calculated using
 #' \code{\link{hullMuirMaxDistance}}. This is typically not a
-#'   whole number and the \code{\link[base]{ceiling}} is used. The maximum
+#'   whole number and the \code{\link{ceiling}} is used. The maximum
 #'   vertical distance is such that the area under the hypotenuse edge of triangle
 #'   integrates to one. This is done using the equation for the area of a triangle.
 #'
@@ -37,7 +37,7 @@
 #'   birds (LB)) separately. An additional size class (RAPTOR) is included and
 #'   identical to the large bird result.
 #'
-#'   The \code{\link[base]{floor}} function is applied to \code{lowerBound}.
+#'   The \code{\link{floor}} function is applied to \code{lowerBound}.
 #'
 #'   It is assumed that \code{hubHeight} and \code{bladeRadius} have the same units.
 #'

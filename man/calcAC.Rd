@@ -51,7 +51,7 @@ bootstrap confidence interval.}
 
 \item{randomSeed}{Numeric value of random seed, default is NULL.}
 
-\item{...}{Additional arguments passed to \code{\link{getDistanceProbability}} and \code{\link[mvtnorm]{rmvnorm}}.}
+\item{...}{Additional arguments passed to \code{\link{getDistanceProbability}} and \code{rmvnorm} (see \code{\link[mvtnorm]{Mvnorm}}).}
 }
 \value{
 \code{windAC} object
@@ -76,7 +76,7 @@ The function \code{\link{getDistanceProbability}} is used to calculate
   and so on. This forms the variance-covariance matrix for the parameters.
 
   If \code{nBoot} is greater than zero, a parametric bootstrap is done.
-  Bootstrap parameters are generated using the \code{\link[mvtnorm]{rmvnorm}}
+  Bootstrap parameters are generated using the \code{rmvnorm}
   function.
 
 If the additionalCol argument is not NULL, separate area corrections are estimated for each unique value within the column.

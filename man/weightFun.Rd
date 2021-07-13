@@ -29,7 +29,7 @@ weightFun(
 
 \item{propCol}{Character, column name of the proportion of area searched in \code{propTable}.}
 
-\item{xFun}{Function, default is \code{\link[base]{ceiling}}, see details.}
+\item{xFun}{Function, default is \code{\link{ceiling}}, see details.}
 
 \item{maxDistance}{Numeric, default is \code{NULL}. If a value is given then \code{propTable} is subsetted to where \code{propTable[,distanceCol] <= maxDistance}.}
 
@@ -46,8 +46,8 @@ The \code{\link{weightedDistribution}} function requires the weights be describe
 This allows integration to happen.
 
 Typically \code{propTable} has integer values for the distances, but the function needs to take in any numeric values, the \code{xFun} function is how any numeric value can be matched up to the values in \code{propTable}.
-If the distances in \code{propTable} correspond to the outer radius of the annuli, for calculating proportion of area searched, then the \code{\link[base]{ceiling}} is appropriate.
-If the distances in \code{propTable} correspond to the inner radius of the annuli then the \code{\link[base]{floor}} might be more appropriate.
+If the distances in \code{propTable} correspond to the outer radius of the annuli, for calculating proportion of area searched, then the \code{\link{ceiling}} is appropriate.
+If the distances in \code{propTable} correspond to the inner radius of the annuli then the \code{\link{floor}} might be more appropriate.
 }
 \examples{
 

@@ -7,11 +7,11 @@
 #'
 #'
 #'
-#' @param side1 Numeric, length of the side of the rectangle
+#' @param side1 Numeric, length of the side of the rectangle.
 #' @param side2 Numeric, length of the second side of the rectangle, default is
 #'   \code{side1} which produces a square.
 #' @param mastRadius Integer, radius of the turbine mast.
-#' @param annulusWidth Integer, width of annulus, default is 1
+#' @param annulusWidth Integer, width of annulus, default is 1.
 #' @param ... Currently ignored.
 #'
 #' @details Searches are conducted around a turbine within a rectangle for bird

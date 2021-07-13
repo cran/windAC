@@ -13,14 +13,14 @@ geometricRectanglePropSearchTable(
 )
 }
 \arguments{
-\item{side1}{Numeric, length of the side of the rectangle}
+\item{side1}{Numeric, length of the side of the rectangle.}
 
 \item{side2}{Numeric, length of the second side of the rectangle, default is
 \code{side1} which produces a square.}
 
 \item{mastRadius}{Integer, radius of the turbine mast.}
 
-\item{annulusWidth}{Integer, width of annulus, default is 1}
+\item{annulusWidth}{Integer, width of annulus, default is 1.}
 
 \item{...}{Currently ignored.}
 }

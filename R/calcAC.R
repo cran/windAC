@@ -26,7 +26,7 @@
 #' @param ciLevel Numeric, default is 0.9, desired confidence level for the
 #'   bootstrap confidence interval.
 #' @param randomSeed Numeric value of random seed, default is NULL.
-#' @param ... Additional arguments passed to \code{\link{getDistanceProbability}} and \code{\link[mvtnorm]{rmvnorm}}.
+#' @param ... Additional arguments passed to \code{\link{getDistanceProbability}} and \code{rmvnorm} (see \code{\link[mvtnorm]{Mvnorm}}).
 #'
 #' @details The function \code{\link{getDistanceProbability}} is used to calculate
 #'   the probability (fraction of carcasses) in the intervals between distances in \code{proportionSearchDF}.
@@ -43,7 +43,7 @@
 #'   and so on. This forms the variance-covariance matrix for the parameters.
 #'
 #'   If \code{nBoot} is greater than zero, a parametric bootstrap is done.
-#'   Bootstrap parameters are generated using the \code{\link[mvtnorm]{rmvnorm}}
+#'   Bootstrap parameters are generated using the \code{rmvnorm}
 #'   function.
 #'
 #' If the additionalCol argument is not NULL, separate area corrections are estimated for each unique value within the column.

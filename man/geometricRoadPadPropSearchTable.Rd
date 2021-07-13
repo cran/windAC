@@ -38,7 +38,7 @@ Searches are conducted on the road and turbine pad around wind
   turbines for bird and bat fatalities. This function creates a data frame of
   proportion of area searched within each annulus ring on an idealized road and pad.
 The turbine is assumed to be centered on a perfectly circular turbine pad with radius \code{padRadius}, and a perfectly straight access road of width \code{roadWidth} is oriented from the center of the circle away from the turbine.
-(The resulting road and pad looks like rather like a lollipop.)
+(The resulting road and pad looks rather like a lollipop.)
 
   The \code{mastRadius} argument is to account for the area taken up by the turbine mast.
 

@@ -80,5 +80,5 @@ qllog(p=seq(0,1,by=.25),shape=1,scale=1/3)
 
 }
 \seealso{
-\code{\link[stats]{dlogis}} \code{\link[stats]{plogis}} \code{\link[stats]{qlogis}} \code{\link[stats]{rlogis}}
+\code{\link[stats]{Logistic}}
 }

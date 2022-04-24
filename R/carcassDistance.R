@@ -28,6 +28,6 @@
 #' \item{probabilityDetection}{The summarized probability of detection from the bias trial information.}
 #' }
 #'
-#' @references \url{https://www.fws.gov/ecological-services/es-library/pdfs/WEG_final.pdf}
+#' @references \url{https://tethys.pnnl.gov/publications/us-fish-wildlife-service-land-based-wind-energy-guidelines}
 #'
 "carcassDistance"

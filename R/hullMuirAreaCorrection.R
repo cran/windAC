@@ -157,9 +157,8 @@ hullMuirAreaCorrection <- function(hubHeight,bladeRadius,lowerBound=0,upperBound
     }#end else if
 
 
-
-    (nonTruncDF <- stats::aggregate(formula=agFormula,FUN=sum,data=allDat))
-    (truncDF <- stats::aggregate(formula=agFormTrunc,FUN=sum,data=allDat))
+    (nonTruncDF <- stats::aggregate(agFormula,FUN=sum,data=allDat))
+    (truncDF <- stats::aggregate(agFormTrunc,FUN=sum,data=allDat))
 
 
     (out <- merge(nonTruncDF,truncDF,by=mergeCol,sort=FALSE))

@@ -33,6 +33,6 @@ Bias trials are also done to account for searcher efficiency and carcass removal
 These results are summarized as a probability of detection in the data set.
 }
 \references{
-\url{https://www.fws.gov/ecological-services/es-library/pdfs/WEG_final.pdf}
+\url{https://tethys.pnnl.gov/publications/us-fish-wildlife-service-land-based-wind-energy-guidelines}
 }
 \keyword{datasets}

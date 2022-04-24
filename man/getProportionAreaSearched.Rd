@@ -13,15 +13,15 @@ getProportionAreaSearched(
 )
 }
 \arguments{
-\item{turbinePoints}{Spatial points object with with data frame indicating turbine names.}
+\item{turbinePoints}{Spatial points object with with data frame indicating turbine names}
 
-\item{turbineName}{Character, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}.}
+\item{turbineName}{Character, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}}
 
-\item{turbinePlots}{Spatial polygon objects indicating the search area around the turbine points.}
+\item{turbinePlots}{Spatial polygon objects indicating the search area around the turbine points}
 
-\item{turbineMastRadius}{Integer, radius of the turbine mast.}
+\item{turbineMastRadius}{Integer, radius of the turbine mast}
 
-\item{maxDistance}{Integer, indicating how far from the turbine that searches occured.}
+\item{maxDistance}{Integer, indicating how far from the turbine that searches occured}
 }
 \value{
 Data frame of proportion of area searched for each annulus around each turbine point. \code{distanceFromTurbine} column represents outer radius of each annulus.
@@ -38,10 +38,9 @@ Caution, the function does some basic checks on the spatial objects but it is as
 
 
 data(turbineSpatial)
-turbPoints <- subset(turbineSpatial$turbinePoints,turbName\%in\%1:5)
-turbPlots <- subset(turbineSpatial$turbinePlots,turbName\%in\%1:5)
-propSearch <- getProportionAreaSearched(turbinePoints=turbPoints,
-turbineName='turbName',turbinePlots=turbPlots,
+
+propSearch <- getProportionAreaSearched(turbinePoints=turbineSpatial$turbinePoints,
+turbineName='turbName',turbinePlots=turbineSpatial$turbinePlots,
  turbineMastRadius=2,maxDistance=10)
 
 

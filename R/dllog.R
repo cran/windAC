@@ -44,7 +44,7 @@
 #'
 #' @return \code{dllog} returns vector of the densities.
 #'
-#' @seealso \code{\link[stats]{Logistic}}
+#' @seealso \code{\link[stats]{dlogis}} \code{\link[stats]{plogis}} \code{\link[stats]{qlogis}} \code{\link[stats]{rlogis}}
 #'
 #' @export dllog
 #'

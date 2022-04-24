@@ -26,7 +26,7 @@
 #' @param ciLevel Numeric, default is 0.9, desired confidence level for the
 #'   bootstrap confidence interval.
 #' @param randomSeed Numeric value of random seed, default is NULL.
-#' @param ... Additional arguments passed to \code{\link{getDistanceProbability}} and \code{rmvnorm} (see \code{\link[mvtnorm]{Mvnorm}}).
+#' @param ... Additional arguments passed to \code{\link{getDistanceProbability}} and \code{\link[mvtnorm]{rmvnorm}}.
 #'
 #' @details The function \code{\link{getDistanceProbability}} is used to calculate
 #'   the probability (fraction of carcasses) in the intervals between distances in \code{proportionSearchDF}.
@@ -43,7 +43,7 @@
 #'   and so on. This forms the variance-covariance matrix for the parameters.
 #'
 #'   If \code{nBoot} is greater than zero, a parametric bootstrap is done.
-#'   Bootstrap parameters are generated using the \code{rmvnorm}
+#'   Bootstrap parameters are generated using the \code{\link[mvtnorm]{rmvnorm}}
 #'   function.
 #'
 #' If the additionalCol argument is not NULL, separate area corrections are estimated for each unique value within the column.
@@ -309,7 +309,7 @@ calcAC <- function(distribution,paramVec,varcovVec=NULL,proportionSearchDF,dista
 
         allDat[,acCol] <- allDat[,proportionCol]*allDat[,probCol]
 
-        thisRep <- stats::aggregate(formula=agFormula,FUN=sum,data=allDat)
+        thisRep <- stats::aggregate(agFormula,FUN=sum,data=allDat)
         thisRep[,repCol] <- i-1
 
         acValues <- rbind(acValues,thisRep)
@@ -328,7 +328,7 @@ calcAC <- function(distribution,paramVec,varcovVec=NULL,proportionSearchDF,dista
 
     if(numBoot>0){
 
-        bootConf <- stats::aggregate(formula=agFormula,FUN=stats::quantile,data=bootReps,probs=c((1-ciLevel)/2,1-(1-ciLevel)/2))
+        bootConf <- stats::aggregate(agFormula,FUN=stats::quantile,data=bootReps,probs=c((1-ciLevel)/2,1-(1-ciLevel)/2))
         bootBounds <- as.data.frame(bootConf[,acCol])
         names(bootBounds) <- paste0(c('L','U'),ciLevel*100)
         bootCI <- cbind(bootConf[,additionalCol,drop=FALSE],bootBounds)

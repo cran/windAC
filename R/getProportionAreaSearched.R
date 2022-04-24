@@ -5,11 +5,11 @@
 #' @description Calculate proportion of area searched around wind turbine based on turbine location data and polygons of search area.
 #'
 #'
-#' @param turbinePoints Spatial points object with with data frame indicating turbine names.
-#' @param turbineName Character, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}.
-#' @param turbinePlots Spatial polygon objects indicating the search area around the turbine points.
-#' @param turbineMastRadius Integer, radius of the turbine mast.
-#' @param maxDistance Integer, indicating how far from the turbine that searches occured.
+#' @param turbinePoints Spatial points object with with data frame indicating turbine names
+#' @param turbineName Character, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}
+#' @param turbinePlots Spatial polygon objects indicating the search area around the turbine points
+#' @param turbineMastRadius Integer, radius of the turbine mast
+#' @param maxDistance Integer, indicating how far from the turbine that searches occured
 #'
 #' @details The \code{\link[sf]{sf}} package is used to calculate overlapping areas between the searched area \code{turbinePlots} and one unit annulus around the \code{turbinePoints}. The annuli increase out to a distance of \code{maxDistance}.
 #'
@@ -26,10 +26,9 @@
 #'
 #'
 #' data(turbineSpatial)
-#' turbPoints <- subset(turbineSpatial$turbinePoints,turbName%in%1:5)
-#' turbPlots <- subset(turbineSpatial$turbinePlots,turbName%in%1:5)
-#' propSearch <- getProportionAreaSearched(turbinePoints=turbPoints,
-#' turbineName='turbName',turbinePlots=turbPlots,
+#'
+#' propSearch <- getProportionAreaSearched(turbinePoints=turbineSpatial$turbinePoints,
+#' turbineName='turbName',turbinePlots=turbineSpatial$turbinePlots,
 #'  turbineMastRadius=2,maxDistance=10)
 #'
 #'
@@ -79,11 +78,11 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
     if (!any(sf::st_geometry_type(turbinePlots) %in% c("POLYGON", "MULTIPOLYGON"))) {
         stop("'turbinePlots' input must be of sf geometry type 'POLYGON' or 'MULTIPOLYGON'")
     }
-
+    
     if (!any(sf::st_geometry_type(turbinePoints) %in% c("POINT", "MULTIPOINT"))) {
         stop("'turbinePoints' input must be of sf geometry type 'POINT' or 'MULTIPOINT'")
     }
-
+        
     ## Check to see if the data is longitude/latitude data.
     if(isTRUE(sf::st_is_longlat(turbinePoints))) {
         stop(paste("sf::st_is_longlat detects that turbinePoints uses a longitude/latitude coordinate system.",
@@ -133,16 +132,16 @@ getProportionAreaSearched <- function(turbinePoints,turbineName,turbinePlots,tur
         missingPlots <- paste(turbinePoints[[turbineName]][!turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]]], collapse = ", ")
         warning(paste0("The following turbinePoints do not have matching polygons in 'turbinePlots' and will be dropped:\n ",  missingPlots))
     }
-
+    
     # drop points that are not in plots
     turbinePoints <- turbinePoints[turbinePoints[[turbineName]] %in% turbinePlots[[turbineName]], ]
-
+    
     # stop if we have fewer points than plots - this will also catch points that were dropped due to inconsistent namings in the line above
     if(any(!turbinePlots[[turbineName]] %in% turbinePoints[[turbineName]])) {
         missingPoints <- paste(turbinePlots[[turbineName]][!turbinePlots[[turbineName]] %in% turbinePoints[[turbineName]]], collapse = ", ")
         stop(paste0("The folowing turbine points(s) are not present in 'turbinePoints' but are in turbinePlots:\n ",  missingPoints))
     }
-
+    
     ## for internal use
     turbPoints <- turbinePoints
     turbName <- turbineName

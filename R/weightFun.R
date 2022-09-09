@@ -1,14 +1,3 @@
-####################################################################
-## Jared Studyvin
-## 9 June 2016
-## This is a weight function for testing purposes
-####################################################################
-
-
-
-
-
-#'
 #' @name weightFun
 #'
 #' @title weight function

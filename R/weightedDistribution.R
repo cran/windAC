@@ -1,12 +1,3 @@
-################################################
-## Jared Studyvin
-## 8 June 2016
-## get parameter estimates and AIC for the weighted distribution
-################################################
-
-
-
-#'
 #' @name weightedDistribution
 #' @aliases estWD
 #' @aliases weightedDistribution

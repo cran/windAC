@@ -1,10 +1,3 @@
-####################################
-## Jared Studyvin
-## 8 Dec 2016
-## dllog
-####################################
-
-#'
 #' @name LogLogistic
 #' @aliases pllog
 #' @aliases dllog

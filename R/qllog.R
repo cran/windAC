@@ -1,11 +1,3 @@
-######################################
-## Jared Studyvin
-## 8 Dec 2016
-## qllog
-######################################
-
-
-#'
 #' @rdname LogLogistic
 #'
 #' @return \code{qllog} returns a vector of quantiles.

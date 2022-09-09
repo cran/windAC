@@ -1,13 +1,3 @@
-############################################################
-## Jared Studyvin
-## 31 Aug 2016
-## 998.030
-############################################################
-
-#'
-#'
-#'
-#'
 #' @name getDistanceProbability
 #'
 #' @title Calculate probabilities within one unit increments.

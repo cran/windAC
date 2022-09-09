@@ -1,10 +1,3 @@
-########################################################
-## Jared Studyvin
-## 14 June 2016
-## get starting values for the weighted likelihood or weighted distribution
-########################################################
-#'
-#'
 #' @name getStartValue
 #'
 #' @title Calculate the start values to be passed to the optimizer.

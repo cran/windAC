@@ -1,12 +1,3 @@
-#####################################################################
-## Jared Studyvin
-## 13 June 2016
-## Weighted likelihood
-#####################################################################
-
-
-#'
-#'
 #' @name weightedLikelihood
 #' @aliases weightedLikelihood
 #' @aliases estTWL
@@ -292,7 +283,8 @@ weightedLikelihood <- function(fatDist,fatW,distribution, plotBounds=NULL,...){
                       covar = varVec[2],
                       var2 = varVec[3],
                       code=code,message=message,
-                      aic=aic,aicc=aicc,nFit=length(fatDist))
+                      llikelihood = -likeValue, aic=aic,aicc=aicc,
+                      nFit=length(fatDist))
 
     return(out)
 

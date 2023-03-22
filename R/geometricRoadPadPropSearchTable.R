@@ -2,11 +2,8 @@
 #' @name geometricRoadPadPropSearchTable
 #'
 #' @title Calculate the areas of intersection of a series of nested annuli with an idealized access road and turbine pad.
-#'
-#'
 #' @description Calculate area of annulus bisected by 2 parallel lines (e.g. a
 #'   road of a road/pad plot).
-#'
 #' @param padRadius Integer, radius of turbine pad from the center of the turbine.
 #' @param roadWidth Integer, width of road leading to turbine pad.
 #' @param maxSearchRadius Integer, maximum search distance from the center of turbine.

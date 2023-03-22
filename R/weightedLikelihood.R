@@ -151,8 +151,8 @@ weightedLikelihood <- function(fatDist,fatW,distribution, plotBounds=NULL,...){
         out
 
     },error=function(cond){
-        message(cond)
-
+      message(conditionMessage(cond))
+      
 
 ##### second try optim without hessian
         fitOptim2 <- tryCatch({
@@ -166,8 +166,8 @@ weightedLikelihood <- function(fatDist,fatW,distribution, plotBounds=NULL,...){
             out
 
         },error=function(cond){
-            message(cond)
-
+          message(conditionMessage(cond))
+          
 ##### third try nlminb
             fitOptim3 <- tryCatch({
 ##print('nlminb')
@@ -176,8 +176,8 @@ weightedLikelihood <- function(fatDist,fatW,distribution, plotBounds=NULL,...){
                 out
 
             },error=function(cond){
-                message(cond)
-                return(return(list(objective=NA,par=NA,convergence=1,message='Error in optim when optimizing')))
+              message(conditionMessage(cond))
+              return(return(list(objective=NA,par=NA,convergence=1,message='Error in optim when optimizing')))
 
             }) ## end tryCatch 3
 

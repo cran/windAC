@@ -52,11 +52,7 @@
 #'
 #' @export
 #'
-#'
 #' @seealso \code{\link{weightedLikelihood}} \code{\link{weightedDistribution}} \code{\link{getDistanceProbability}}
-#'
-#'
-#' @import mvtnorm
 #'
 #' @examples
 #'

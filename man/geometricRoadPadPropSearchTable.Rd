@@ -2,7 +2,8 @@
 % Please edit documentation in R/geometricRoadPadPropSearchTable.R
 \name{geometricRoadPadPropSearchTable}
 \alias{geometricRoadPadPropSearchTable}
-\title{Calculate the areas of intersection of a series of nested annuli with an idealized access road and turbine pad.}
+\title{Calculate the areas of intersection of a series of nested annuli with 
+an idealized access road and turbine pad.}
 \usage{
 geometricRoadPadPropSearchTable(
   padRadius,

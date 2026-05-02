@@ -4,19 +4,19 @@
 \alias{secondDerivative}
 \title{secondDerivative}
 \usage{
-secondDerivative(loc, FUN, ..., eps = 1e-07)
+secondDerivative(loc, FUN, ..., eps = 1e-06)
 }
 \arguments{
 \item{loc}{The location (a vector) where the second derivatives
 of \code{FUN} are desired.}
 
 \item{FUN}{An R function to compute second derivatives for.
-This must be a function of the form FUN <- function(x, ...){...}
+This must be a function of the form \code{FUN <- function(x, ...)}
 where x is the parameters of the function (e.g., location \code{loc}).
 \code{FUN} must return a single value (scalar), the height of the
 surface above \code{x}, i.e., \code{FUN} evaluated at \code{x}.}
 
-\item{...}{Additional agruments to \code{FUN}.}
+\item{...}{Additional arguments to \code{FUN}.}
 
 \item{eps}{Radius argument, see details. Default is \code{10e-7}.}
 }
@@ -24,19 +24,21 @@ surface above \code{x}, i.e., \code{FUN} evaluated at \code{x}.}
 Matrix
 }
 \description{
-Computes numeric second derivatives (hessian) of an
+Computes numeric second derivatives (Hessian) of an
 arbitrary multidimensional function at a particular location.
 }
 \details{
 This function uses the "5-point" numeric second derivative
 method advocated in numerous numerical recipe texts.  During computation
-of the second derivative, FUN will be evaluated at locations within a hyper-elipsoid
-with cardinal radius \code{2*loc*(eps)^0.25}.
+of the second derivative, FUN will be evaluated at locations within a 
+hyper-ellipsoid with cardinal radius \code{2 * loc * eps^0.25}.
 
+If those radii don't work for your function, make eps a parameter to this 
+function and change it, possibly varying by dimension.
 
 A handy way to use this function is to call an optimization routine
 like \code{nlminb} with FUN, then call this function with the
-optimized values (solution) and FUN.  This will yeild the hessian
+optimized values (solution) and FUN.  This will yield the hessian
 at the solution rather than the hessian at the previous step of the
 optimization.
 }

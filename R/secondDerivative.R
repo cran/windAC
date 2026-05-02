@@ -1,32 +1,33 @@
 #' @title secondDerivative
 #'
-#' @description Computes numeric second derivatives (hessian) of an
+#' @description Computes numeric second derivatives (Hessian) of an
 #' arbitrary multidimensional function at a particular location.
 #'
 #' @param loc The location (a vector) where the second derivatives
 #' of \code{FUN} are desired.
 #'
 #' @param FUN An R function to compute second derivatives for.
-#' This must be a function of the form FUN <- function(x, ...){...}
+#' This must be a function of the form \code{FUN <- function(x, ...)}
 #' where x is the parameters of the function (e.g., location \code{loc}).
 #' \code{FUN} must return a single value (scalar), the height of the
 #' surface above \code{x}, i.e., \code{FUN} evaluated at \code{x}.
 #'
-#' @param ... Additional agruments to \code{FUN}.
+#' @param ... Additional arguments to \code{FUN}.
 #'
 #' @param eps Radius argument, see details. Default is \code{10e-7}.
 #'
 #'
 #' @details This function uses the "5-point" numeric second derivative
 #' method advocated in numerous numerical recipe texts.  During computation
-#' of the second derivative, FUN will be evaluated at locations within a hyper-elipsoid
-#' with cardinal radius \code{2*loc*(eps)^0.25}.
+#' of the second derivative, FUN will be evaluated at locations within a 
+#' hyper-ellipsoid with cardinal radius \code{2 * loc * eps^0.25}.
 #'
-## If those radii don't work for your function, make eps a parameter to this function and change it, possibly varying by dimension.
+#' If those radii don't work for your function, make eps a parameter to this 
+#' function and change it, possibly varying by dimension.
 #'
 #' A handy way to use this function is to call an optimization routine
 #' like \code{nlminb} with FUN, then call this function with the
-#' optimized values (solution) and FUN.  This will yeild the hessian
+#' optimized values (solution) and FUN.  This will yield the hessian
 #' at the solution rather than the hessian at the previous step of the
 #' optimization.
 #'
@@ -50,13 +51,9 @@
 #' secondDerivative(c(1,1),func)
 #' secondDerivative(c(4,9),func)
 
-
-
-
-secondDerivative <- function(loc, FUN, ..., eps=1e-7){
-
-
-    x <- loc
+secondDerivative <- function(loc, FUN, ..., eps=10e-7){
+    
+  x <- loc
 
     FUN <- match.fun(FUN)
     d <- length(x)   # number of dimensions
@@ -82,7 +79,7 @@ secondDerivative <- function(loc, FUN, ..., eps=1e-7){
                 ## compute off diagonal element
                 hess[i,j] <- (FUN(x+h*ei+h*ej, ...) - FUN(x+h*ei-h*ej, ...) -
                               FUN(x-h*ei+h*ej, ...) + FUN(x-h*ei-h*ej, ...)) / (4*h[i]*h[j])
-                ## Assume symetric
+                ## Assume symmetric
                 hess[j,i] <- hess[i,j]
             }#end for j
         }#end if

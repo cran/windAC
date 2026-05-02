@@ -9,39 +9,57 @@ getProportionAreaSearched(
   turbineName,
   turbinePlots,
   turbineMastRadius,
-  maxDistance
+  maxDistance,
+  nQuadSegs = 1000
 )
 }
 \arguments{
-\item{turbinePoints}{Spatial points object with with data frame indicating turbine names}
+\item{turbinePoints}{sf data.frame of point geometries and a \code{turbineName} 
+column indicating the turbine names}
 
-\item{turbineName}{Character, indicating the variable name for the turbine names in \code{turbinePoints} and plot names in \code{turbinePlots}}
+\item{turbineName}{Character, indicating the variable name for the turbine 
+names in \code{turbinePoints} and plot names in \code{turbinePlots}}
 
-\item{turbinePlots}{Spatial polygon objects indicating the search area around the turbine points}
+\item{turbinePlots}{sf data.frame of polygon geometries indicating the search area around 
+the turbine points and a \code{turbineName} column indicating the turbine names}
 
-\item{turbineMastRadius}{Integer of length 1. radius of the turbine mast}
+\item{turbineMastRadius}{Integer of length 1. The radius of the turbine mast}
 
-\item{maxDistance}{Integer, indicating how far from the turbine that searches occurred}
+\item{maxDistance}{Integer indicating how far from the turbine that searches 
+occurred}
+
+\item{nQuadSegs}{integer; number of segments per quadrant (fourth of a circle), for all or per-feature; see details}
 }
 \value{
-Data frame of proportion of area searched for each annulus around each turbine point. \code{distanceFromTurbine} column represents outer radius of each annulus.
+Data frame of proportion of area searched for each annulus around each 
+turbine point. \code{distanceFromTurbine} column represents outer radius of 
+each annulus.
 }
 \description{
-Calculate proportion of area searched around wind turbine based on turbine location data and polygons of search area.
+Calculate the proportion of area searched around wind turbine based 
+on turbine location data and polygons of search area.
 }
 \details{
-The \code{\link[sf]{sf}} package is used to calculate overlapping areas between the searched area \code{turbinePlots} and one unit annulus around the \code{turbinePoints}. The annuli increase out to a distance of \code{maxDistance}.
+The \code{\link[sf]{sf}} package is used to calculate overlapping 
+areas between the searched area \code{turbinePlots} and one unit annulus around 
+the \code{turbinePoints}. The annuli increase out to a distance of 
+\code{maxDistance}. The \code{nQuadSegs} argument is passed directly to 
+\code{\link[sf:st_buffer]{sf::st_buffer}}
 
-Caution, the function does some basic checks on the spatial objects but it is assumed that the points and polygons do not have any boundary, geometry, or other issues.
+Caution: the function does some basic checks on the spatial objects but it is 
+assumed that the points and polygons do not have any boundary, geometry, or 
+other issues.
 }
 \examples{
-
-
 data(turbineSpatial)
 
-propSearch <- getProportionAreaSearched(turbinePoints=turbineSpatial$turbinePoints,
-turbineName='turbName',turbinePlots=turbineSpatial$turbinePlots,
- turbineMastRadius=2,maxDistance=10)
-
+propSearch <- getProportionAreaSearched(
+  turbinePoints = turbineSpatial$turbinePoints,
+  turbineName = 'turbName',
+  turbinePlots = turbineSpatial$turbinePlots,
+  turbineMastRadius = 2,
+  maxDistance = 10, 
+  nQuadSegs = 100
+)
 
 }
